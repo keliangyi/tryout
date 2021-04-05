@@ -38,8 +38,25 @@ class TestMixin {
         }
     }
 }
+
+
 const MixinUser = withEZDebug(TestMixin)
 const user = new MixinUser('maomao', 9, '男')
+
+@withEZDebug // 装饰器
+class Decorated {
+    
+    getDebugValue () {
+        return {
+            a:1,
+            b:2
+        }
+    }
+}
+
+const d = new Decorated()
+
+// d.debug()
 
 user.debug()
 

@@ -1,6 +1,26 @@
+class User {
+    public type:string = 'person' // 类变量
+    constructor( // public、private、protected 会自动绑定到this 上
+        protected name : string, // 实例变量
+        public readonly age : number,
+        private sex :string = 'male'
+    ){
 
+    }
+
+    log(){
+        console.log(`大家好，我叫${this.name}，今年${this.age}岁了`);        
+    }
+}
+const maomao = new User('m0=aomao',29)
+maomao.log()
+maomao.type
+
+/** 
+ * 类既声明值也声明类型（和枚举相同）,其他的类型和值在不同的命名空间中
+ * 类会声明两种类型：实例类型和构造方法类型（typeof Class）
+ * */ 
 type State = { [key:string ]: string }
-
 class StringDb {
     state:State = {}
 
@@ -19,36 +39,35 @@ class StringDb {
         return db
     }
 }
-
-type c = StringDb
-type d = typeof StringDb
-
+type c = StringDb  // 实例类型
+type d = typeof StringDb // 构造方法类型
 
 
+// 类的泛型
 class MyMap<T,U> {
     static of<T1>(k:T1){ //静态成员不能引用类类型参数。
 
     }
     
-    set(k:T,v:U){
-
-    }
-}
-
-class User {
-    constructor( // public、private、protected 会自动绑定到this 上
-        protected name : string,
-        public readonly age : number,
-        private sex :string = 'male'
-    ){
-
-    }
-
-    log(){
-        console.log(`大家好，我叫${this.name}，今年${this.age}岁了`);        
+    set(k:T,v:U):this{
+        // ... 
+        return this
     }
 }
 
 
-const maomao = new User('m0=aomao',29)
-maomao.log()
+/**
+ * 模拟final(私有构造方法):不可实例化、不可扩展（extends）
+ * 若只想不可实例化就是要抽象类 abstract
+ * MessageQueue.crate() 来实例化，但是不可扩展
+ */
+class MessageQueue {
+    private constructor(private msg:string[]){} 
+
+    crate(){
+        return new MessageQueue([])
+    }
+}
+
+// class Child extends MessageQueue {}
+// const m = new MessageQueue() // 
