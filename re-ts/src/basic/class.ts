@@ -16,6 +16,7 @@ const maomao = new User('m0=aomao',29)
 maomao.log()
 maomao.type
 
+// type SB = 's' | 'b'
 /** 
  * 类既声明值也声明类型（和枚举相同）,其他的类型和值在不同的命名空间中
  * 类会声明两种类型：实例类型和构造方法类型（typeof Class）
