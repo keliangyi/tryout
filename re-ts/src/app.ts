@@ -4,9 +4,11 @@ import './basic/fibonacci'
 import './basic/mixin'
 import './basic/keyof'
 import './basic/error'
+import { Banshen } from './senior/map'
 
 [1,0,false,'','create','react','app'].filter(Boolean)
 
-const a = 99
-type a = number
-
+/**伴生对象模式 
+ * import 的 Banshen 即使 类型又是 值
+ */
+const c:Banshen = Banshen.getColor('Blue','Blue') 
