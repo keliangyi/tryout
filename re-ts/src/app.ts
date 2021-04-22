@@ -5,6 +5,7 @@ import './basic/mixin'
 import './basic/keyof'
 import './basic/error'
 import { Banshen } from './senior/map'
+import './es/proxy'
 
 [1,0,false,'','create','react','app'].filter(Boolean)
 
