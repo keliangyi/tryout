@@ -4,6 +4,7 @@ import { makeAutoObservable, observable, computed, action, } from "mobx"
 import { observer } from "mobx-react-lite"
 import { Button, Cell, Panel } from 'zarm'
 import axios from 'axios';
+import { useWhyDidYouUpdate } from 'ahooks';
 
 
 export interface ITodo {
@@ -27,6 +28,25 @@ class This {
     }
 }
 
+function selfish<T extends object> (target:T):T {
+    const cache = new WeakMap();
+    const handler = {
+        get (target: object, key: PropertyKey) {
+            const value = Reflect.get(target, key);
+            if (typeof value !== 'function') {
+                return value;
+            }
+            if (!cache.has(value)) {
+                cache.set(value, value.bind(target));
+            }
+            return cache.get(value);
+        }
+    }
+    const proxy = new Proxy(target, handler);
+    return proxy as T
+  }
+  
+
 // model
 let id = 0
 export class TodoStore {
@@ -34,6 +54,7 @@ export class TodoStore {
 
     constructor() {
         makeAutoObservable(this)
+        this.ajax()
     }
     
     @computed
@@ -46,7 +67,7 @@ export class TodoStore {
     }
 
     @action.bound
-    addNewTodo = (todo ?: ITodo) => {
+    addNewTodo(todo ?: ITodo){
         const i = id ++ 
         todo = todo ?? {
             id:i,
@@ -58,19 +79,19 @@ export class TodoStore {
     }
 
     @action.bound
-    removeTodoById = (id:number) => {
+    removeTodoById(id:number){
         this.todos = this.todos.filter(f => f.id !== id)
     }
 
     @action.bound
-    toggleStatus = (id:number) => {
+    toggleStatus(id:number){
         this.todos = this.todos.map(f => f.id === id ? {
             ...f,
             done:!f.done
         } : f)
     }
     @action.bound
-    ajax = async () => {
+    async ajax(){
         const res = await axios.get('/index/jiekou/qianyue?todo=1')
         this.addNewTodo({
             name:res.data.xiaoquname,
@@ -86,7 +107,7 @@ const STORE_TODO = 'todoStore'
 
 const createStore = () => {
     return {
-        [STORE_TODO]:new TodoStore()
+        [STORE_TODO]: selfish(new TodoStore())
     }
 }
 
@@ -113,8 +134,9 @@ const useTodoStore = () => {
 
 
 const TodoList:React.FC = observer(() => {
-    const {  todos, toggleStatus, addNewTodo, doneCount  } = useTodoStore()
+    const {  todos, toggleStatus, addNewTodo, doneCount,  } = useTodoStore()
     
+    console.log('render');
     
     return <div>
         <Panel>
@@ -130,7 +152,6 @@ const TodoList:React.FC = observer(() => {
 
 const Head = observer(() => {
     const {  todos, doneCount  } = useTodoStore()
-    console.log(todos);
     
     return <h2>{doneCount} =&gt; {todos.length}</h2>
 })
