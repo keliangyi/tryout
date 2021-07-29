@@ -35,9 +35,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-exports.__esModule = true;
-var koa_1 = require("koa");
-var app = new koa_1["default"]();
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var koa_1 = __importDefault(require("koa"));
+var app = new koa_1.default();
 app.use(function (ctx) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         ctx.body = 'Hello World !';
@@ -47,4 +50,4 @@ app.use(function (ctx) { return __awaiter(void 0, void 0, void 0, function () {
 app.listen(5959, function () {
     console.log('5959 is on');
 });
-exports["default"] = app;
+exports.default = app;

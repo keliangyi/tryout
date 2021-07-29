@@ -72,3 +72,35 @@ class MessageQueue {
 
 // class Child extends MessageQueue {}
 // const m = new MessageQueue() // 
+
+
+
+
+class Controler {
+    base(){
+        return 'base'
+    }
+}
+
+class User1 extends Controler {
+    age:number
+    constructor(){
+        super()
+        this.age = this.getAge()
+    }
+    
+    static getSb () {
+
+    }
+
+    protected getInfo(){
+
+    }
+
+    private getAge(){
+        return 45
+    }
+
+}
+const u = new User1()    
+console.log(Object.keys(Object.getPrototypeOf(u))); // 获取实例方法名 不包含继承来的和静态方法， 但是无法区分public、 private 和 protected
