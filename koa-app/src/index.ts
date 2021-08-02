@@ -5,12 +5,15 @@ import registerRouter from './router'
 
 const app = new Koa()
 
-app.use(async (ctx,next) => {
-    ctx.body = userName
-    next()
-})
 
 registerRouter(app)
+
+app.use(async (ctx,next) => {
+    ctx.body = userName
+    console.log(ctx,'========');
+    
+    next()
+})
 
 app.listen(5959,() => {
     console.log('5959 is on');    
