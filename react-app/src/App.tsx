@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { useEffect } from 'react';
 import logo from './logo.svg';
 import { Tc as todo } from './model'
 import './App.css';
@@ -10,7 +10,20 @@ import { observer } from 'mobx-react-lite';
 
 function App() {
 
-	
+	useEffect(() => {
+		const fetchData = async () => {
+			const res = await fetch('http://192.168.0.7:5959/user/12?type=1',{
+				mode:"cors",
+				headers:{
+					'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
+				}
+			})
+			console.log(res);
+			
+		}
+
+		fetchData()
+	},[])
 
 	return (
 		<div className="App">

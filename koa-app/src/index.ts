@@ -5,13 +5,17 @@ import registerRouter from './router'
 
 const app = new Koa()
 
+app.use(async (ctx, next) => {
+    ctx.set("Access-Control-Allow-Origin", "*")
+    await next()
+})
+  
 
 registerRouter(app)
 
+
 app.use(async (ctx,next) => {
     ctx.body = userName
-    console.log(ctx,'========');
-    
     next()
 })
 

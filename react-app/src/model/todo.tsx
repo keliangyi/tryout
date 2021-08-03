@@ -164,3 +164,7 @@
 // }
 
 // export default App
+
+export default {
+    sb:1
+}
