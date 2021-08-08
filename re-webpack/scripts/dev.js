@@ -7,10 +7,12 @@ const webpack = require('webpack')
 const DevServer = require('webpack-dev-server')
 
 
-const { createConfig } = require('../config')
+const { createConfig } = require('../config/1index')
 
 const Html = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CssMinimizerPlugin  = require("css-minimizer-webpack-plugin");
 const cwd = process.cwd()
 
 
@@ -31,16 +33,18 @@ const moduleFileExtensions = [
     'jsx',
 ]
 // const config = createConfig()
-const compiler = webpack({
-    mode: isBuild ? 'production' : "development",
-    target: ['web', 'es5'], // 打包结果没有箭头函数
-    entry: path.resolve(cwd, 'src/index.tsx'),
+const config = {
+    mode: isBuild ? 'production' : "development",  
+    entry: path.resolve(cwd,'src','index.tsx'),
     output: {
         filename: 'main.[fullhash:5].js',
         path: path.resolve(cwd, 'dist'),
     },
     resolve: {
-        extensions: moduleFileExtensions.map(ext => '.' + ext)
+        extensions: moduleFileExtensions.map(ext => '.' + ext),
+        alias:{
+            "@":path.resolve(cwd, 'src')
+        }
     },
     externals: {
         "react": 'React',
@@ -72,17 +76,64 @@ const compiler = webpack({
                     },
                     "ts-loader",
                 ]
+            },
+            {
+                test:/.(css)$/i,
+                use:[
+                    MiniCssExtractPlugin.loader,
+                    // 'style-loader',
+                    {
+                        loader:'css-loader',
+                        options:{
+                            modules: {
+                                auto: (resourcePath) => {   
+                                    return !/global.(le|c)ss$/.test(resourcePath)
+                                },
+                            },
+                        }
+                    },
+                    {
+                        loader:"postcss-loader",
+                        options:{
+                            postcssOptions: {
+                                plugins: [
+                                    ['postcss-preset-env',{
+                                        autoprefixer:true
+                                    }]
+                                ]
+                            }
+                        }
+                    }
+                ]
             }
         ]
     },
     plugins: [
         new Html({
             title: "react-webpack",
-            template: path.resolve(cwd, 'public/index.ejs')
+            template: path.resolve(cwd, 'public/index.ejs'),
+            inject:'body'
         }),
-        new CleanWebpackPlugin()
-    ]
-})
+        new CleanWebpackPlugin(),
+        new webpack.HotModuleReplacementPlugin(),
+        new MiniCssExtractPlugin({
+            filename:'css/wxq_[name].[fullhash:6].css'
+        }),
+        new CssMinimizerPlugin()
+    ],
+    
+}
+const options = {
+    hot: true,
+    host: 'localhost',
+}
+
+if(isBuild){ // 影响hmr
+    config['target'] =  ['web', 'es5'] // 打包结果没有箭头函数
+}
+
+// DevServer.addDevServerEntrypoints(config,options)
+const compiler = webpack(config)
 
 
 if (isBuild) {
@@ -95,13 +146,9 @@ if (isBuild) {
         })
     })
 } else {
-    DevServer.addDevServerEntrypoints({}, {
-        hot: true
-    })
-    const server = new DevServer(compiler, {
-        // open:true,
-        hot: true
-    })
+   
+  
+    const server = new DevServer(compiler, options)
 
     server.listen(8080, '0.0.0.0', () => {
         console.log("Starting server on http://localhost:8080");
