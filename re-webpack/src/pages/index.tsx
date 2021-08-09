@@ -1,10 +1,13 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import styles from './index.css'
+import Parent from './test/useCallback';
 
 const HomePage:FC = () => {
-    return <div>
-        <h1 className={styles.home}>this is dashboard ！！！</h1>
-    </div>
+
+    return <Parent />
 }
+
+
+
 
 export default HomePage

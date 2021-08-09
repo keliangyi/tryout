@@ -56,7 +56,7 @@ const config = {
                 test: /\.(js|ts|jsx|tsx)$/,
                 exclude: /node_modules/,
                 use: [
-                    path.resolve(cwd, 'loader/cleanLog.js'),
+                    // path.resolve(cwd, 'loader/cleanLog.js'),
                     {
                         loader: "babel-loader",
                         options: {
@@ -145,10 +145,12 @@ if (isBuild) {
             console.log('closeErr:', closeErr);
         })
     })
-} else {
-   
+} else {   
   
-    const server = new DevServer(compiler, options)
+    const server = new DevServer(compiler, {
+        ...options,
+        historyApiFallback: true
+    })
 
     server.listen(8080, '0.0.0.0', () => {
         console.log("Starting server on http://localhost:8080");
