@@ -8,6 +8,7 @@ import NotFound from '@/pages/404'
 
 
 export default () => {
+	
 	return <div id="da">	
 		<BrowserRouter>
 			<div>
