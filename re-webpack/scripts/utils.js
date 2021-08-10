@@ -33,7 +33,7 @@ const createConfig = (mode="development") => {
     config.output = {
         filename: 'static/js/[name].[fullhash:5].js',
         path: path.resolve(root, 'dist'),
-        chunkFilename:'static/js/[name].[fullhash:5].chunk.js'
+        chunkFilename: isDev ? void 0 : 'static/js/[name].[fullhash:5].chunk.js'
     }
     config.resolve = {
         extensions: moduleFileExtensions.map(ext => '.' + ext),
@@ -41,10 +41,11 @@ const createConfig = (mode="development") => {
             "@":path.resolve(root, 'src')
         }
     }
-    config.externals = {
-        "react": 'React',
-        "react-dom": 'ReactDOM'
-    }
+
+    // config.externals = {
+    //     "react": 'React',
+    //     "react-dom": 'ReactDOM'
+    // }
 
     config.module = {
         rules:[
@@ -128,10 +129,9 @@ const createConfig = (mode="development") => {
             new CssMinimizerPlugin()
         )  
         config.optimization = {
-            minimize:true,
+            // minimize:true,
             splitChunks: {
                 chunks: 'all',
-                name: false,
             },
             runtimeChunk: {
                 name: entrypoint => `runtime-${entrypoint.name}`,

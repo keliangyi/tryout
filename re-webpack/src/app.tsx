@@ -7,7 +7,7 @@ import NotFound from '@/pages/404'
 
 
 
-// const AsyncImport:FC<{ path:string }> = ({ path }) => {
+// const AsyncImport:FC<{ path:string }> = ({ path })r => {
 // 	const H1 = lazy(() => import('@/pages/index'))
 // 	return <>
 // 		<H1 />
@@ -20,6 +20,12 @@ const H1 = lazy(() => import('@/pages/index'))
 	const Pw = lazy(() => import('@/pages/user/password'))
 
 export default () => {
+
+	useEffect(() => {
+		import(/* webpackChunkName : 'sbbb'*/'./pages/desc').then(desc => {
+			console.info(desc)
+		})
+	},[])
 	
 	return <Suspense fallback={<div><h1>loading...</h1></div>}>	
 		<BrowserRouter>
