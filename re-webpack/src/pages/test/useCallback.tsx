@@ -26,7 +26,7 @@ const Parent:FC = () => {
         
     },[])
     
-    return <div>
+    return <div style={{ width:"100vw" }}>
         <h1>{ count }</h1>
         <button onClick={handleClick}>parentd click</button>
         <hr />

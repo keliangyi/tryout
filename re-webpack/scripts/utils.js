@@ -31,8 +31,9 @@ const createConfig = (mode="development") => {
     config.mode = mode
     config.entry = path.resolve(root,'src','index.tsx')
     config.output = {
-        filename: '[name].[fullhash:5].js',
+        filename: 'static/js/[name].[fullhash:5].js',
         path: path.resolve(root, 'dist'),
+        chunkFilename:'static/js/[name].[fullhash:5].chunk.js'
     }
     config.resolve = {
         extensions: moduleFileExtensions.map(ext => '.' + ext),
@@ -122,10 +123,20 @@ const createConfig = (mode="development") => {
         config.bail = true
         config.plugins.push(            
             new MiniCssExtractPlugin({
-                filename:'css/app_v1_[name].[fullhash:6].css'
+                filename:'static/css/app_v1_[name].[fullhash:6].css'
             }),
             new CssMinimizerPlugin()
         )  
+        config.optimization = {
+            minimize:true,
+            splitChunks: {
+                chunks: 'all',
+                name: false,
+            },
+            runtimeChunk: {
+                name: entrypoint => `runtime-${entrypoint.name}`,
+            },
+        }
     }
     return config
 }
