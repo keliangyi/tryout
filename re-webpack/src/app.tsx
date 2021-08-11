@@ -18,20 +18,15 @@ import NotFound from '@/pages/404'
 const H1 = lazy(() => import(/* webpackChunkName:"chunksb" */"./pages/index"))
 const U1 = lazy(() => import('@/pages/user'))
 const Pw = lazy(() => import('@/pages/user/password'))
+const Music = lazy(() => import('@/pages/index/music'))
 
 export default function App ()  {
 
 	useEffect(() => {
 		const dynamic = () => {
 			import(/* webpackChunkName : 'sbbb'*/'./pages/desc').then(({ default:desc }) => {
-				console.info(desc)
-			})
-			import('lodash').then(({ default: _ }) => {
-				const element = document.createElement('div');
-				element.innerHTML = _.join(['Hello', 'webpack', '松果出行'], ' ');
-				console.info(_.join(['a', 'b', 'c']),_)
-				return element;
-			})
+				// console.info(desc)
+			})			
 		}
 		dynamic()
 		
@@ -43,7 +38,8 @@ export default function App ()  {
 				<Link to="/home">ho11me</Link> / 
 				<Link to="/user">u111ser</Link> /
 				<Link to="/ps">ps</Link> /
-				<Link to="/ps1">u111ser</Link>
+				<Link to="/ps1">u111ser</Link> /
+				<Link to="/music">music</Link>
 			</div>
 			<Switch>
 				<Route path={['/','/home']} exact>
@@ -54,6 +50,7 @@ export default function App ()  {
 				</Route>
 				<Route path="/ps" exact component={Pw} />
 				<Route path="/404" component={NotFound} exact />
+				<Route path="/music" component={Music} exact />
 				<Route component={NotFound} />
 			</Switch>
 		</BrowserRouter>
