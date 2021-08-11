@@ -15,13 +15,13 @@ detect(port).then((_port) => {
             historyApiFallback: true,
             hot:true,
             port:_port,
-            open:true,
-            stats:'errors-only'
+            // open:true,
+            // stats:'errors-only'
         }    
         const compiler = webpack(createConfig())
         const server = new DevServer(compiler,devOptions)    
         server.listen(devOptions.port, '0.0.0.0', () => {
-            clearConsole()
+            // clearConsole()
             console.log(`Starting server on http://localhost:${devOptions.port}`);
         })    
     }   

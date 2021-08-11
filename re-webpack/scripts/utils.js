@@ -31,9 +31,11 @@ const createConfig = (mode="development") => {
     config.mode = mode
     config.entry = path.resolve(root,'src','index.tsx')
     config.output = {
-        filename: 'static/js/[name].[fullhash:5].js',
         path: path.resolve(root, 'dist'),
-        chunkFilename: isDev ? void 0 : 'static/js/[name].[fullhash:5].chunk.js'
+        publicPath: '/',
+        filename: 'static/js/[name].[contenthash:5].js',
+     
+        chunkFilename:'static/js/[name].[contenthash:5].chunk.js'
     }
     config.resolve = {
         extensions: moduleFileExtensions.map(ext => '.' + ext),
@@ -57,20 +59,32 @@ const createConfig = (mode="development") => {
                     {
                         loader: "babel-loader",
                         options: {
-                            presets: [
+                            presets: [      
+                                "@babel/preset-typescript",                          
                                 "@babel/preset-react",
                                 [
                                     '@babel/preset-env',
                                     {
-                                        modules: 'commonjs',
+                                        modules: false, // 会影响 dynamic-import
                                         corejs: 3,
-                                        targets: { ie: 11 },
+                                        targets: { 
+                                            "chrome": "90",
+                                         },
                                         useBuiltIns: "usage",
                                     }
-                                ],
-                                "@babel/preset-typescript"
+                                ], 
+                            ],
+                            plugins:[
+                                [
+                                    "@babel/plugin-transform-react-jsx",
+                                    {
+                                        "runtime": "automatic"
+                                    }
+                                ],                               
+                                "@babel/plugin-syntax-dynamic-import",
                             ]
-                        }
+                        },
+                       
                     },
                     // "ts-loader", // 太慢了 用 @babel/preset-typescript 代替
                 ].filter(Boolean)
@@ -132,12 +146,26 @@ const createConfig = (mode="development") => {
             // minimize:true,
             splitChunks: {
                 chunks: 'all',
+                cacheGroups: {
+                    vendors: {
+                        name:"vendors",
+                        test: /[\\/]node_modules[\\/]/,
+                        priority: -10,
+                        reuseExistingChunk: true,
+                    },
+                    default: {
+                        minChunks: 2,
+                        priority: -20,
+                        reuseExistingChunk: true,
+                    },
+                },
             },
             runtimeChunk: {
                 name: entrypoint => `runtime-${entrypoint.name}`,
             },
         }
     }
+    // console.log( config );
     return config
 }
 
