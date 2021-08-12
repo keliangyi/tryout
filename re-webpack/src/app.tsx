@@ -40,10 +40,10 @@ export default function App ()  {
 	return <Suspense fallback={<div><h1>loading...</h1></div>}>	
 		<BrowserRouter>
 			<div>
-				<Link to="/home">ho11me</Link> / 
-				<Link to="/user">u111ser</Link> /
-				<Link to="/ps">ps</Link> /
-				<Link to="/ps1">u111ser</Link>
+				<Link to="/home">home</Link> / 
+				<Link to="/user">user</Link> /
+				<Link to="/pw">password</Link> /
+				<Link to="/ps1">404</Link>
 			</div>
 			<Switch>
 				<Route path={['/','/home']} exact>
@@ -52,7 +52,7 @@ export default function App ()  {
 				<Route path="/user" exact>
 					<U1 />
 				</Route>
-				<Route path="/ps" exact component={Pw} />
+				<Route path="/pw" exact component={Pw} />
 				<Route path="/404" component={NotFound} exact />
 				<Route component={NotFound} />
 			</Switch>

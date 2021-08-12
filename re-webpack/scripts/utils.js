@@ -81,7 +81,7 @@ const createConfig = (mode="development") => {
                                         "runtime": "automatic"
                                     }
                                 ],                               
-                                "@babel/plugin-syntax-dynamic-import",
+                                // "@babel/plugin-syntax-dynamic-import",
                             ]
                         },
                        

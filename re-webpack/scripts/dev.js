@@ -7,7 +7,7 @@ const detect = require('detect-port')
 
 const { createConfig, clearConsole, } = require('./utils')
 
-const port = 8080
+const port = 7080
 
 detect(port).then((_port) => {    
     if(_port){
