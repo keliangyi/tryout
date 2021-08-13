@@ -1,9 +1,19 @@
 
-import { ChangeEvent, FC, useRef, useState,  } from "react"
+import { ChangeEvent, FC, useCallback, useEffect, useRef, useState,  } from "react"
 import { produce } from 'immer'
 import { useInterval } from "@/hooks"
 
 const exts = ['audio/mp3','audio/m4a']
+
+
+const debounce = (fn:Function, ms = 0) => {
+    let timeoutId:ReturnType<typeof setTimeout>
+    return function(this:unknown, ...args:any[]) {
+        clearTimeout(timeoutId)
+        timeoutId = setTimeout(() => fn.apply(this, args), ms)
+    }
+}
+
 
 interface Istate {
     palyed:number,
@@ -31,7 +41,8 @@ const Audio:FC = () => {
             draft.palyed = draft.palyed + 1
         }))
     },time.interval)
-    
+
+        
     const handleFileChange = (e:ChangeEvent<HTMLInputElement>) => {
         const files = e.target.files
         if(files && files.length > 0){
@@ -55,7 +66,9 @@ const Audio:FC = () => {
         if(bufferCache && !musicBuffer.current.buffer){
             musicBuffer.current.buffer = bufferCache   
             musicBuffer.current.connect(audioCtx.current.destination)    
-            musicBuffer.current.start(0,offset ?? time.palyed)  
+            musicBuffer.current.start(0 ,offset ?? time.palyed)  
+            console.log(offset, time.palyed);
+            
             setTime(produce(draft => {
                 draft.isPaly = true
                 draft.interval = 1000
@@ -64,23 +77,24 @@ const Audio:FC = () => {
     }
 
     const handlePause = () => {
-        musicBuffer.current.stop()
-        musicBuffer.current = audioCtx.current.createBufferSource()
-        setTime(produce(draft => {
-            draft.isPaly = false
-            draft.interval = null
-        }))
+        if(musicBuffer.current.buffer){
+            musicBuffer.current.stop()
+            musicBuffer.current = audioCtx.current.createBufferSource()
+            setTime(produce(draft => {
+                draft.isPaly = false
+                draft.interval = null
+            }))
+        }       
     }
 
-    const handleRangeChange = (e:ChangeEvent<HTMLInputElement>) => {
+    const handleRangeChange = useCallback((e:ChangeEvent<HTMLInputElement>) => {
         e.persist()
-        const val = e.target.valueAsNumber
-        handlePause()
-        handlePlay(val)
+        const val = e.target.valueAsNumber     
+               
         setTime(produce(draft => {
             draft.palyed = val
         }))
-    }
+    },[])
     
     return <div>
         <div>
