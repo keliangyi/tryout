@@ -61,6 +61,7 @@ const Audio:FC = () => {
             }
         }
     }
+    
 
     const handlePlay = (offset = 0) => {
         if(bufferCache && !musicBuffer.current.buffer){
