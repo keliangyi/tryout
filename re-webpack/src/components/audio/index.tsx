@@ -19,7 +19,7 @@ interface Istate {
 const Audio:FC = () => {
 
     const audioCtx = useRef(new AudioContext())
-    const musicBuffer = useRef<AudioBufferSourceNode>(audioCtx.current.createBufferSource())
+    const musicBuffer = useRef<AudioBufferSourceNode>()
 
     const [ bufferCache, setCache ] = useState<AudioBuffer>()
 
@@ -56,25 +56,26 @@ const Audio:FC = () => {
     }
     
 
-    const handlePlay = useCallback(debounce((offset = 0) => {
-
+    const handlePlay = useCallback( debounce((offset = 0,) => {
         musicBuffer.current = audioCtx.current.createBufferSource()
-        
-        if(bufferCache && !musicBuffer.current.buffer){
-            musicBuffer.current.buffer = bufferCache   
+        console.log(bufferCache,offset);
+        if(bufferCache && !time.isPaly ){
+            musicBuffer.current.buffer = bufferCache  
             musicBuffer.current.connect(audioCtx.current.destination)    
             musicBuffer.current.start(0 ,offset)             
             setTime(draft => {
                 draft.isPaly = true
                 draft.interval = 1000
             })
+           
         }    
     },500),[])
 
     const handlePause = () => {
-        if(musicBuffer.current.buffer){
+        
+        if(musicBuffer.current?.buffer){
             musicBuffer.current.stop()
-            // musicBuffer.current = audioCtx.current.createBufferSource()
+            musicBuffer.current = void 0
             setTime(draft => {
                 draft.isPaly = false
                 draft.interval = null
@@ -82,6 +83,7 @@ const Audio:FC = () => {
         }       
     }
 
+//   console.log(time);
   
 
     const handleRangeChange = useCallback((e:ChangeEvent<HTMLInputElement>) => {
