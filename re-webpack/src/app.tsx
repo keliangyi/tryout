@@ -19,6 +19,7 @@ const H1 = lazy(() => import(/* webpackChunkName:"chunksb" */"./pages/index"))
 const U1 = lazy(() => import('@/pages/user'))
 const Pw = lazy(() => import('@/pages/user/password'))
 const Music = lazy(() => import('@/pages/index/music'))
+const Socket = lazy(() => import('@/pages/socket'))
 
 export default function App ()  {
 
@@ -39,7 +40,8 @@ export default function App ()  {
 				<Link to="/user">u111ser</Link> /
 				<Link to="/ps">ps</Link> /
 				<Link to="/ps1">u111ser</Link> /
-				<Link to="/music">music</Link>
+				<Link to="/music">music</Link> / 
+				<Link to="/socket">Socket</Link> / 
 			</div>
 			<Switch>
 				<Route path={['/','/home']} exact>
@@ -51,6 +53,7 @@ export default function App ()  {
 				<Route path="/pw" exact component={Pw} />
 				<Route path="/404" component={NotFound} exact />
 				<Route path="/music" component={Music} exact />
+				<Route path="/socket" component={Socket} exact />
 				<Route component={NotFound} />
 			</Switch>
 		</BrowserRouter>

@@ -15,6 +15,12 @@ detect(port).then((_port) => {
             historyApiFallback: true,
             hot:true,
             port:_port,
+            proxy: {
+                '/socket.io':{
+                    target:'ws://192.168.1.250:5959/',
+                    ws: true
+                }
+            }
             // open:true,
             // stats:'errors-only'
         }    
