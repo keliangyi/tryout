@@ -1,0 +1,38 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4-section</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="wrapper">
+        <section class="section">section-1</section>
+        <section class="section">section-2</section>
+        <section class="section">section-3</section>
+        <section class="section">section-4</section>
+    </div>
+    <script>
+        const item = document.querySelector('.wrapper')
+        item.addEventListener('click',(e) => {
+            if(Array.from(e.target.classList).includes('on')){
+                Array.from(document.querySelectorAll('.section')).forEach(i => {
+                    i.classList.remove('on')
+                })
+                e.currentTarget.classList.remove('dd')
+            }else{
+                Array.from(document.querySelectorAll('.section')).forEach(i => {
+                    i.classList.remove('on')
+                })
+                
+                e.target.classList.add('on')
+                e.currentTarget.classList.add('dd')
+            }          
+        })
+    </script>
+</body>
+</html>
