@@ -24,5 +24,10 @@ namespace infer {
 
 
 
+    function Infer1<T extends any[]> (arg:T):T[0] {
+        return arg[0]
+    }
+
+    const c = Infer1([45,4])
 
 }
