@@ -1,0 +1,14 @@
+<div>
+    <ul>
+        <li *ngFor="let item of list">
+            <div>
+                <div class="label" [style.text-decoration]="item.done ? 'line-through' : 'none'"
+                    (click)="toggle(item.id)">
+                    <input [checked]="item.done" [id]='"todo_"+item.id' type="checkbox">
+                    <span>{{ item.title }}</span>
+                    <span>=={{ item.done }}</span>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>

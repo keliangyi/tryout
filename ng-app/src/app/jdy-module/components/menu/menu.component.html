@@ -1,0 +1,20 @@
+<aside class="menu">
+    <div class="menu-content">
+        <div class="hd">
+            <a href="/" class="logo">
+                <img src="../../../../assets/logo.png" alt="">
+            </a>
+        </div>
+        <div class="bd">
+            <ul>
+                <li *ngFor="let item of menus" class="menu-item" routerLinkActive="active"
+                    [routerLinkActiveOptions]='{exact:true}'>
+                    <a [routerLink]="[item.url]" matRipple>
+                        <app-icon *ngIf="item.icon" [type]="item.icon" class="icon"></app-icon>
+                        <span>{{ item.title }}</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</aside>

@@ -1,0 +1,6 @@
+export * from './header/header.component'
+export * from './icon/icon.component'
+export * from './layout/layout.component'
+export * from './menu/menu.component'
+export * from './notfound/notfound.component'
+export * from './page/page.component'

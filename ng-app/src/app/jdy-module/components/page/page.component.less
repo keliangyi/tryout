@@ -1,0 +1,39 @@
+.page {
+    display: flex;
+
+    &-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 12px 0 10px;
+        &-heading {
+            flex: 1;
+        }
+    }
+    &-aside {
+        position: relative;
+        flex-shrink: 0;
+        flex-basis: 256px;
+        width: 256px;
+        transition: all 0.3s cubic-bezier(0.7, 0.3, 0.1, 1);
+        .tree {
+            width: inherit;
+            position: fixed;
+            top: 48px;
+            left: 0;
+            bottom: 0;
+            z-index: 1000;
+            background-color: #fff;
+            box-shadow: 0 0 20px -5px rgb(0 0 0 / 15%);
+        }
+    }
+    &-content {
+        flex: 1;
+    }
+    &-container {
+        min-height: calc(100vh - 120px);
+        padding: 16px;
+        background-color: #fff;
+        border-radius: var(--border-radius);
+    }
+}

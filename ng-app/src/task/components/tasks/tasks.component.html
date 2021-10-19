@@ -1,0 +1,4 @@
+<app-add-task (onSave)="handleSave($event)" *ngIf="showAddTask"></app-add-task>
+
+<app-task-item *ngFor="let task of tasks" [task]='task' (onDel)="handleDel($event)" (onToggle)="handleToggle($event)">
+</app-task-item>
