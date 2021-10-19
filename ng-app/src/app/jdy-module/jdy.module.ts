@@ -10,6 +10,8 @@ import { HeaderComponent, IconComponent, NotfoundComponent, PageComponent } from
 import { AppPipeModule } from './pipes/appPipe.module';
 import { LayoutComponent } from './components/layout/layout.component';
 import { MenuComponent } from './components/menu/menu.component';
+import { GridDirective } from './directives/grid.directive';
+import { GridItemDirective } from './directives/grid-item.directive';
 
 
 
@@ -22,6 +24,9 @@ import { MenuComponent } from './components/menu/menu.component';
         PageComponent,
         LayoutComponent,
         MenuComponent,
+        GridDirective,
+        GridItemDirective,
+
     ],
     imports: [
         CommonModule,
@@ -50,6 +55,8 @@ import { MenuComponent } from './components/menu/menu.component';
         NotfoundComponent,
         PageComponent,
         AppPipeModule,
+        GridDirective,
+        GridItemDirective
 
     ]
 })

@@ -4,7 +4,7 @@ import { AppComponent } from 'src/app/app.component';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginGuardGuard } from './guard/login-guard.guard';
 import { HttpClientModule } from '@angular/common/http';
-import { JdyModuleModule } from './jdy-module/jdy-module.module';
+import { JdyModuleModule } from './jdy-module/jdy.module';
 import { NotfoundComponent } from './jdy-module/components';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
