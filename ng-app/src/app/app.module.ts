@@ -1,12 +1,16 @@
+
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { AppComponent } from 'src/app/app.component';
 import { RouterModule, Routes } from '@angular/router';
-import { LoginGuardGuard } from './guard/login-guard.guard';
-import { HttpClientModule } from '@angular/common/http';
-import { JdyModuleModule } from './jdy-module/jdy.module';
-import { NotfoundComponent } from './jdy-module/components';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { AppComponent } from 'src/app/app.component';
+import { LoginGuardGuard } from 'src/app/guard/login-guard.guard';
+import { JdyModuleModule } from 'src/app/jdy-module/jdy.module';
+import { NotfoundComponent } from 'src/app/jdy-module/components';
+
+import { RequestInterceptor, ResponseInterceptor } from 'src/app/interceptors';
 
 
 
@@ -47,7 +51,18 @@ const routes: Routes = [
         BrowserAnimationsModule,
     ],
     declarations: [AppComponent,],
-    providers: [],
+    providers: [
+        {
+            provide: HTTP_INTERCEPTORS,
+            multi: true,
+            useClass: RequestInterceptor
+        },
+        {
+            provide: HTTP_INTERCEPTORS,
+            multi: true,
+            useClass: ResponseInterceptor
+        },
+    ],
     bootstrap: [
         AppComponent
     ]

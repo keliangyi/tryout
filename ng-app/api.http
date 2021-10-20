@@ -1,0 +1,5 @@
+GET {{host}}/v1?token={{token}} HTTP/1.1
+
+
+###
+GET {{host}}/v1?token={{token}} HTTP/1.1
