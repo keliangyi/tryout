@@ -1,13 +1,18 @@
 :root {
     --primary-color: #408cfd;
+    --secondary-color: #faca44;
     --dark-color: #0d152c;
     --bg-color: #f4f9fd;
     --border-color: #e8e8e8;
     --red: #f54545;
     --amber: #ffc107;
-    --purple: #9c27b0;
+    --purple: #db94e9;
     --teal: #009688;
-    --gold: #d48806;
+    --gold: #e3af20;
+    --green: #08cb49;
+    --pink: #d7a8df;
+    --yellow: #efc87b;
+
     --desc: rgba(0, 0, 0, 0.45);
     --black: rgba(0, 0, 0, 1);
 
@@ -40,6 +45,48 @@ a {
     &:not([href]) {
         text-decoration: none;
     }
+}
+
+button {
+    margin-left: 6px !important;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+    background-color: rgba(240, 240, 240, 1);
+}
+
+/*定义滚动条轨道 内阴影+圆角*/
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 0px rgba(240, 240, 240, 0.5);
+    border-radius: 10px;
+    background-color: rgba(240, 240, 240, 0.5);
+}
+
+/*定义滑块 内阴影+圆角*/
+::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    box-shadow: inset 0 0 0px rgba(240, 240, 240, 0.5);
+    background-color: rgba(0, 0, 0, 0.171);
+}
+
+.sub-title {
+    font-size: 20px;
+    font-weight: normal;
+}
+
+.mat-grid-tile-content {
+    align-items: flex-start !important;
+    > .mat-card {
+        flex: 1;
+    }
+}
+.mat-card {
+    box-shadow: none !important;
+}
+.mat-card-title {
+    font-size: 20px;
 }
 
 /**

@@ -1,0 +1,22 @@
+.project-item {
+    flex: 1;
+    height: inherit;
+    position: relative;
+    padding-left: 24px;
+    &::before {
+        content: "";
+        width: 3px;
+        position: absolute;
+        top: 16px;
+        left: 12px;
+        bottom: 16px;
+        background-color: var(--color);
+        border-radius: 2px;
+    }
+
+    .icon {
+        margin-right: 6px;
+        font-size: 20px;
+        color: var(--color);
+    }
+}

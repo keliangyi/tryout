@@ -1,9 +1,34 @@
 <app-page title="表单设置">
-    <div class="box" cdkDrag cdkDragBoundary=".page-container">
-        45fff
+    <div class="form">
+        <div class="components">
+            <mat-card>
+                <mat-card-title>
+                    组件
+                </mat-card-title>
+            </mat-card>
+        </div>
+        <div class="result">
+            <div style="display: flex;justify-content:space-between">
+                <h3 class="sub-title">
+                    表单内容
+                </h3>
+                <div>
+                    <button mat-raised-button color="primary">保存</button>
+                    <button mat-raised-button color="primary" disabled>编辑</button>
+                    <button mat-raised-button color="accent">发布</button>
+                    <button mat-raised-button color="warn">删除</button>
+                </div>
+            </div>
+            <div class="mat-card" #resultWrapper>
+                <div style="height: 5000px;">{{top}}</div>
+            </div>
+        </div>
+        <div class="property">
+            <mat-card>
+                <mat-card-title>
+                    属性
+                </mat-card-title>
+            </mat-card>
+        </div>
     </div>
-    <section class="wrapper">
-        <div class="components"></div>
-        <div class="container"></div>
-    </section>
 </app-page>

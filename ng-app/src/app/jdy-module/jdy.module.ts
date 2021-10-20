@@ -5,13 +5,13 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatRippleModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { HeaderComponent, IconComponent, NotfoundComponent, PageComponent } from './components';
 import { AppPipeModule } from './pipes/appPipe.module';
 import { LayoutComponent } from './components/layout/layout.component';
 import { MenuComponent } from './components/menu/menu.component';
-import { GridDirective } from './directives/grid.directive';
-import { GridItemDirective } from './directives/grid-item.directive';
+import { GridDirective, GridItemDirective, FlexItemDirective } from './directives';
 
 
 
@@ -26,7 +26,7 @@ import { GridItemDirective } from './directives/grid-item.directive';
         MenuComponent,
         GridDirective,
         GridItemDirective,
-
+        FlexItemDirective,
     ],
     imports: [
         CommonModule,
@@ -37,6 +37,7 @@ import { GridItemDirective } from './directives/grid-item.directive';
         MatInputModule,
         MatButtonModule,
         MatCardModule,
+        MatGridListModule,
     ],
     exports: [
         CommonModule,
@@ -45,6 +46,7 @@ import { GridItemDirective } from './directives/grid-item.directive';
         MatInputModule,
         MatButtonModule,
         MatCardModule,
+        MatGridListModule,
 
 
 
@@ -56,7 +58,8 @@ import { GridItemDirective } from './directives/grid-item.directive';
         PageComponent,
         AppPipeModule,
         GridDirective,
-        GridItemDirective
+        GridItemDirective,
+        FlexItemDirective
 
     ]
 })

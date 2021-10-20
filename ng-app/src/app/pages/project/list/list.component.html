@@ -1,3 +1,15 @@
 <app-page title="项目列表">
-    答案官方公告
+    <mat-grid-list cols="3" gutterSize="24px" rowHeight="80px">
+        <mat-grid-tile *ngFor="let item of data; " [style.--color]="item.color">
+            <mat-card class="project-item">
+                <p>
+                    <app-icon [type]="item.icon" class="icon"></app-icon>
+                    <span>{{ item.title }}</span>
+                </p>
+                <p style="margin-top: 10px;color:rgba(0,0,0,.35)">
+                    {{ item.date | date }}
+                </p>
+            </mat-card>
+        </mat-grid-tile>
+    </mat-grid-list>
 </app-page>

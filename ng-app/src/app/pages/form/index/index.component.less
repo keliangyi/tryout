@@ -6,6 +6,26 @@
     cursor: move;
 }
 
-.forms {
-    min-height: 80vh;
+.form {
+    display: flex;
+
+    .components,
+    .property {
+        flex-shrink: 0;
+        flex-basis: 256px;
+        height: calc(100vh - 130px);
+    }
+    .mat-card {
+        height: inherit;
+        overflow-y: auto;
+    }
+    .result {
+        flex: 1;
+        margin: 0 24px;
+        height: calc(100vh - 168px);
+        .mat-card {
+            margin-top: 12px;
+            min-height: 500px;
+        }
+    }
 }
