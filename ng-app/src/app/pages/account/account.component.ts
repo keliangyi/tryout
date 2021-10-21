@@ -38,7 +38,7 @@ export class AccountComponent implements OnInit, AfterViewInit, OnDestroy {
     constructor(private store: StoreService) { }
 
     ngOnInit(): void {
-        this.store$ = this.store.subject.subscribe((c) => {
+        this.store$ = this.store.subject$.subscribe((c) => {
             this.count = c
         })
 
@@ -68,7 +68,7 @@ export class AccountComponent implements OnInit, AfterViewInit, OnDestroy {
 
     calculate() {
         this.yjMoney = Math.random() * 100
-        this.store.fetchUserInfo()
+        this.store.fetchJsonServer()
     }
 
     increaseCounter() {

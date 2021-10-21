@@ -1,5 +1,11 @@
-GET {{host}}/v1?token={{token}} HTTP/1.1
+###一个 post请求，body一定要是json 的格式###
+Post {{host}}/api/home/login
+Content-Type: application/json;charset=UTF-8
 
+{
+    "userName":"15000000000",
+    "password":"admin"
+}
 
 ###
 GET {{host}}/v1?token={{token}} HTTP/1.1

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { HeaderComponent } from './jdy-module';
+import { StoreService } from './services';
 
 @Component({
     selector: 'app-root',
@@ -14,13 +15,12 @@ export class AppComponent implements OnInit {
 
     @ViewChild('header') hd!: HeaderComponent
 
-    constructor(private http: HttpClient) {
+    constructor(private store: StoreService) {
 
     }
 
-
     ngOnInit(): void {
-
+        this.store.fetchAccount()
     }
 
     tirggerHeaderFn() {

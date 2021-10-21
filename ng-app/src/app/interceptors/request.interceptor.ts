@@ -20,7 +20,7 @@ export class RequestInterceptor implements HttpInterceptor {
                 'Content-Type': 'application/json'
             },
             setParams: {
-                "h5": "1"
+                "ng": "1"
             }
         })
         return next.handle(newRequest);

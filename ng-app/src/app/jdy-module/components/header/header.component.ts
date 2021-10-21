@@ -25,7 +25,7 @@ export class HeaderComponent implements OnInit {
     constructor(private store: StoreService) { }
 
     ngOnInit(): void {
-        this.store.subject.subscribe((c) => {
+        this.store.subject$.subscribe((c) => {
 
             this.count = c
         })

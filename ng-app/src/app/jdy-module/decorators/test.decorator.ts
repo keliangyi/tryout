@@ -30,3 +30,15 @@ export function Confirmable(message: string): Function {
         }
     }
 }
+
+export const ParamDecorator = (id: string) => {
+    return (target: object, methodName: string | symbol, paramIndex: number) => {
+        //@ts-ignore
+        target.fromParamDecorator = {
+            id,
+            target,
+            methodName,
+            paramIndex
+        }
+    }
+}

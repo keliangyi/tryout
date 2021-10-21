@@ -1,5 +1,5 @@
 
-import { NgModule } from '@angular/core';
+import { NgModule, InjectionToken } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -37,12 +37,13 @@ const routes: Routes = [
     { path: 'project', loadChildren: () => import('./pages/project/project.module').then(m => m.ProjectModule), canActivate: [LoginGuardGuard] },
     { path: 'form', loadChildren: () => import('./pages/form/form.module').then(m => m.FormModule), canActivate: [LoginGuardGuard] },
     { path: 'account', loadChildren: () => import('./pages/account/account.module').then(m => m.AccountModule), canActivate: [LoginGuardGuard] },
-    { path: 'test', loadChildren: () => import('./pages/test/test.module').then(m => m.TestModule) },
+    { path: 'test', loadChildren: () => import('./pages/test/test.module').then(m => m.TestModule), },
     { path: "**", redirectTo: '/404', pathMatch: 'full' }
 ]
 
-@NgModule({
+export const appVersion = new InjectionToken<string>('version')
 
+@NgModule({
     imports: [
         BrowserModule,
         HttpClientModule,
@@ -61,6 +62,10 @@ const routes: Routes = [
             provide: HTTP_INTERCEPTORS,
             multi: true,
             useClass: ResponseInterceptor
+        },
+        {
+            provide: appVersion,
+            useValue: '2020'
         },
     ],
     bootstrap: [

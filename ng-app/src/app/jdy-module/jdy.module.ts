@@ -5,6 +5,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { MatRippleModule } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { HeaderComponent, IconComponent, NotfoundComponent, PageComponent } from './components';
@@ -38,6 +39,7 @@ import { GridDirective, GridItemDirective, FlexItemDirective } from './directive
         MatButtonModule,
         MatCardModule,
         MatGridListModule,
+        MatSnackBarModule,
     ],
     exports: [
         CommonModule,
@@ -47,6 +49,7 @@ import { GridDirective, GridItemDirective, FlexItemDirective } from './directive
         MatButtonModule,
         MatCardModule,
         MatGridListModule,
+        MatSnackBarModule,
 
 
 
