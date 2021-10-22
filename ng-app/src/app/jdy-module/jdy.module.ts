@@ -8,11 +8,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
-import { HeaderComponent, IconComponent, NotfoundComponent, PageComponent } from './components';
 import { AppPipeModule } from './pipes/appPipe.module';
 import { LayoutComponent } from './components/layout/layout.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { GridDirective, GridItemDirective, FlexItemDirective } from './directives';
+import { HeaderComponent, IconComponent, NotfoundComponent, PageComponent, CountDownComponent, OnModelComponent } from './components';
 
 
 
@@ -28,6 +28,8 @@ import { GridDirective, GridItemDirective, FlexItemDirective } from './directive
         GridDirective,
         GridItemDirective,
         FlexItemDirective,
+        CountDownComponent,
+        OnModelComponent,
     ],
     imports: [
         CommonModule,
@@ -59,7 +61,12 @@ import { GridDirective, GridItemDirective, FlexItemDirective } from './directive
         IconComponent,
         NotfoundComponent,
         PageComponent,
+        CountDownComponent,
+        OnModelComponent,
+
         AppPipeModule,
+
+
         GridDirective,
         GridItemDirective,
         FlexItemDirective

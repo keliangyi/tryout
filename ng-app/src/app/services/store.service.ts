@@ -45,7 +45,8 @@ export class StoreService {
     }
 
     testParamDecorator(age: number, @ParamDecorator('996') name: string) {
-        console.log('ParamDecorator：', StoreService.prototype,);
+
+        console.log('ParamDecorator：', StoreService.prototype, age, name);
     }
 
     fetchAccount() {

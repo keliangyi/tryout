@@ -1,9 +1,10 @@
 
-import { NgModule, InjectionToken } from '@angular/core';
+import { NgModule, InjectionToken, LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import zh from '@angular/common/locales/zh-Hans'
 
 import { AppComponent } from 'src/app/app.component';
 import { LoginGuardGuard } from 'src/app/guard/login-guard.guard';
@@ -11,6 +12,7 @@ import { JdyModuleModule } from 'src/app/jdy-module/jdy.module';
 import { NotfoundComponent } from 'src/app/jdy-module/components';
 
 import { RequestInterceptor, ResponseInterceptor } from 'src/app/interceptors';
+import { registerLocaleData } from '@angular/common';
 
 
 
@@ -54,6 +56,10 @@ export const appVersion = new InjectionToken<string>('version')
     declarations: [AppComponent,],
     providers: [
         {
+            provide: LOCALE_ID,
+            useValue: "zh-Hans"
+        },
+        {
             provide: HTTP_INTERCEPTORS,
             multi: true,
             useClass: RequestInterceptor
@@ -72,4 +78,8 @@ export const appVersion = new InjectionToken<string>('version')
         AppComponent
     ]
 })
-export class AppModule { }
+export class AppModule {
+    constructor() {
+        registerLocaleData(zh, 'zh-Hans')
+    }
+}

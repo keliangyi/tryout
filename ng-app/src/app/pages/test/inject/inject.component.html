@@ -1,5 +1,61 @@
 <app-page>
-    <mat-card>
-        version：{{ version }}
+    <mat-card class="card">
+        <mat-card-title>依赖注入：</mat-card-title>
+        <p>
+            useValue inject version：{{ version }}
+        </p>
+    </mat-card>
+    <mat-card class="card">
+        <mat-card-title>倒计时：</mat-card-title>
+        <app-count-down [end]="endDate"></app-count-down>
+    </mat-card>
+    <mat-card class="card">
+        <mat-card-title>pipe:</mat-card-title>
+        <div class="row">
+            money :{{ money | currency:'CNY':'symbol':'8.1-2' }}
+        </div>
+
+        <div class="row">
+            json :{{ obj | json }}
+        </div>
+
+        <div class="row">
+            slice :{{ money | slice:1:5 }}
+        </div>
+
+        <div class="row">
+            decimal :{{ money | number:'1.2-2' }}
+        </div>
+
+        <div class="row">
+            date : {{ endDate | date:'YYYY-MM-dd HH:mm:ss' }}
+        </div>
+
+        <div class="row">
+            <p>keyvalue:</p>
+
+            <p>
+                <span *ngFor="let item of object | keyvalue">
+                    {{item.key}}:{{item.value}}
+                </span>
+            </p>
+
+            <p>
+                <span *ngFor="let item of map | keyvalue">
+                    {{item.key}}:{{item.value}}
+                </span>
+            </p>
+        </div>
+
+        <div class="row">
+            percent：{{ percent|percent:'1.2-2' }}
+        </div>
+    </mat-card>
+    <mat-card class="card">
+        <p>自定义ngmodel</p>
+        <app-on-model [(onModel)]='username'></app-on-model>
+        <p>
+            在app-on-model外面:{{username}}
+        </p>
     </mat-card>
 </app-page>
