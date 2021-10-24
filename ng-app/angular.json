@@ -28,7 +28,8 @@
                         "inlineStyleLanguage": "less",
                         "assets": [
                             "src/favicon.ico",
-                            "src/assets"
+                            "src/assets",
+                            "src/netlify.toml"
                         ],
                         "styles": [
                             "src/custom-theme.scss",

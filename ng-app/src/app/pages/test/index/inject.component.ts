@@ -1,7 +1,10 @@
 import { Component, Inject, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { interval, Observable, of } from 'rxjs';
-import { catchError, tap, timeout } from 'rxjs/operators';
+import { ActivatedRoute } from '@angular/router';
+import { BehaviorSubject, fromEvent, interval, Observable, of, Subject } from 'rxjs';
+import { catchError, delay, map, switchMap, takeWhile, tap, timeout } from 'rxjs/operators';
 import { appVersion } from 'src/app/app.module';
+import { Confirmable, Emoji } from 'src/app/jdy-module';
+import { Account, StoreService } from 'src/app/services';
 
 @Component({
     selector: 'app-inject',
@@ -11,6 +14,7 @@ import { appVersion } from 'src/app/app.module';
 export class InjectComponent implements OnInit {
 
 
+    @Emoji() name: string = 'maomao'
     public endDate = new Date('2021-11-11 15:04:02')
     public money = '125743'
     public obj = {
@@ -19,24 +23,61 @@ export class InjectComponent implements OnInit {
         likes: ['吃饭', '睡觉', '打豆豆']
     }
     public object: { [key: number]: string } = { 1: '吃饭', 2: '睡觉', 3: '打豆豆' }
-
     public map = new Map([[2, 'foo'], [1, 'bar'], [3, '这是value']])
-
     public percent = 0.618321
-
     public timeout$ = interval(1000)
-
-    public username = 'm'
-
-    constructor(@Inject(appVersion) public version: string) {
+    public username = 'v-model'
+    public user$: Observable<Account> | undefined
+    public conter$: Subject<number> | undefined
+    public counter: number | undefined
+    constructor(
+        @Inject(appVersion) public version: string,
+        private route: ActivatedRoute,
+        private store: StoreService) {
 
     }
 
     ngOnInit(): void {
-        this.testTimeout()
-        const r = this.bigIntSum('4', '155')
-        console.log('ff', r);
 
+        const route$ = this.route.paramMap
+        const routerSubs = route$.subscribe(route => {
+            console.log('routerSubs,id', route.get('id'));
+        })
+
+        this.user$ = route$.pipe(
+            map(r => r.get('id')),
+            switchMap(id => this.store.fetchUserByid(id!))
+        )
+        // this.store.subject$.next(2)
+        this.store.subject$.subscribe(d => {
+            console.log(d, '===');
+            this.counter = d
+        })
+        // this.testSwitchMap()
+
+    }
+
+    changeCounter() {
+        this.store.increaseCounter()
+    }
+
+    testSwitchMap() {
+        const counter$ = interval(1000)
+        const click$ = fromEvent(document, 'click').pipe(
+            switchMap(c => counter$)
+        ).subscribe(c => {
+            console.log(`距离上次点击:${c}秒了`)
+        })
+    }
+
+
+    changeName() {
+        this.name = this.name.includes('jack') ? 'maomao' : 'jack'
+    }
+
+    @Confirmable('确认要提交吗？')
+    showConfirmable() {
+        console.log('这个答案是要在装饰器的confirm确认过后才可以看到', this)
     }
 
     testTimeout() {

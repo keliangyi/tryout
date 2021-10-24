@@ -19,7 +19,7 @@ export class LoginGuardGuard implements CanActivate {
     ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
         if (this.store.account) {
-            if (this.store.account.shengfen !== '超级管理员') {
+            if (this.store.account.sf !== 0) {
                 return false
             }
             return true

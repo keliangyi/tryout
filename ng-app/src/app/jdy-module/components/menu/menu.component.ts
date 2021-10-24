@@ -20,7 +20,7 @@ export class MenuComponent implements OnInit {
         { title: '项目管理', url: "/project/list", icon: 'icon-appstore-fill' },
         { title: '表单设置', url: 'form', icon: 'icon-form' },
         { title: '个人中心', url: 'account', icon: 'icon-yonghu' },
-        { title: '测试一下', url: '/test', icon: 'icon-rocket-fill' },
+        { title: '测试一下', url: '/test/1', icon: 'icon-rocket-fill' },
     ]
 
     constructor() { }

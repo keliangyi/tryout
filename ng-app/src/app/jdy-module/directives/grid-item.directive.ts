@@ -11,7 +11,6 @@ export class GridItemDirective implements OnInit {
     constructor(private elr: ElementRef, private rd2: Renderer2) { }
 
     ngOnInit() {
-        console.log(this.elr.nativeElement, this);
 
         this.rd2.setStyle(this.elr.nativeElement, 'flex-basis', this.appGridItem)
         this.rd2.setStyle(this.elr.nativeElement, 'object-fit', this.fitMode)
@@ -19,7 +18,6 @@ export class GridItemDirective implements OnInit {
 
     @HostListener('click', ['$event.target'])
     handleClick(ev: any) {
-        console.log(ev.innerHTML);
-
+        console.log('HostListener', ev.innerHTML);
     }
 }

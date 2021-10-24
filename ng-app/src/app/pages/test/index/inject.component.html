@@ -1,9 +1,49 @@
 <app-page>
+
+    <mat-card class="card">
+        <mat-card-title>动态参数</mat-card-title>
+        <p>
+            <button mat-raised-button [routerLink]="['/test',1]">id:1</button>
+            <button mat-raised-button [routerLink]="['/test',2]">id:2</button>
+            <button mat-raised-button [routerLink]="['/test',3]">id:3</button>
+        </p>
+        <ng-container *ngIf="(user$ | async) as user">
+            <p>
+                姓名：{{ user.name }}，年龄{{user.age}}，身份：{{ user.sf | identity }}
+            </p>
+        </ng-container>
+
+    </mat-card>
     <mat-card class="card">
         <mat-card-title>依赖注入：</mat-card-title>
         <p>
             useValue inject version：{{ version }}
         </p>
+        <p>
+            counter$:{{ conter$ | async }}
+        </p>
+        <p>
+            counter:{{ counter }}
+        </p>
+        <p>
+            <button (click)="changeCounter()">change counter</button>
+        </p>
+    </mat-card>
+    <mat-card class="card">
+        <p>test decorator works!</p>
+
+        <h3>装饰属性：{{ name }}</h3>
+
+        <button (click)="changeName()">changeName</button>
+        <button (click)="showConfirmable()">confirmable</button>
+
+        <ul appGrid>
+            <li appGridItem='120px' [fitMode]="'cover'" [ta]="'center'">1</li>
+            <li appGridItem="100px">2</li>
+            <li appGridItem="45px">3</li>
+            <li appGridItem>4</li>
+            <li appGridItem>5</li>
+        </ul>
     </mat-card>
     <mat-card class="card">
         <mat-card-title>倒计时：</mat-card-title>

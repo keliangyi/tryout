@@ -2,14 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { TestRoutingModule } from './test-routing.module';
-import { DecoratorComponent } from './decorator/decorator.component';
 import { JdyModuleModule } from 'src/app/jdy-module';
-import { InjectComponent } from './inject/inject.component';
+import { InjectComponent } from './index/inject.component';
 
 
 @NgModule({
     declarations: [
-        DecoratorComponent,
         InjectComponent
     ],
     imports: [

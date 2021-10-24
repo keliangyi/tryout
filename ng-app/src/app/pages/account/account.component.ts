@@ -42,9 +42,9 @@ export class AccountComponent implements OnInit, AfterViewInit, OnDestroy {
             this.count = c
         })
 
-        this.timer = setInterval(() => {
-            this.increaseCounter()
-        }, 1000)
+        // this.timer = setInterval(() => {
+        //     this.increaseCounter()
+        // }, 1000)
     }
 
     ngOnDestroy() {

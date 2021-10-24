@@ -4,7 +4,8 @@ import {
     HttpHandler,
     HttpEvent,
     HttpInterceptor,
-    HttpResponse
+    HttpResponse,
+    HttpErrorResponse
 } from '@angular/common/http';
 import { Observable, of, } from 'rxjs';
 import { tap, timeout, catchError } from 'rxjs/operators'
@@ -34,8 +35,14 @@ export class ResponseInterceptor implements HttpInterceptor {
                 }
             }),
             catchError((err: any) => {
-                this.toast.open(err, '', {
-                    verticalPosition: 'top'
+                console.log(err);
+                let msg: string = ''
+                if (err instanceof HttpErrorResponse) {
+                    msg = err.statusText
+                }
+                this.toast.open(msg, '', {
+                    verticalPosition: 'top',
+                    duration: 2000
                 })
                 return of(err)
             })

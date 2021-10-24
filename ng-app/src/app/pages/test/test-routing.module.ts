@@ -1,12 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DecoratorComponent } from './decorator/decorator.component';
-import { InjectComponent } from './inject/inject.component';
+import { InjectComponent } from './index/inject.component';
 
 const routes: Routes = [
-    { path: '', pathMatch: 'full', redirectTo: '/test/inject' },
-    { path: 'decorator', component: DecoratorComponent },
-    { path: 'inject', component: InjectComponent },
+    { path: ':id', pathMatch: 'full', component: InjectComponent },
 
 ];
 

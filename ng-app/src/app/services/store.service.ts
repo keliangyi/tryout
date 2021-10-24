@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { ParamDecorator } from '../jdy-module';
 
 interface UserInfo {
@@ -9,21 +9,9 @@ interface UserInfo {
 }
 
 export interface Account {
-    menu: any[]
-    daishenhe_zhuhu: number
-    shengfen: string
-    tree_queding: boolean
-    yonghu: {
-        name: string
-        nickname: string
-        phone: string
-        touxiang: string
-        userid: number
-        userlevel: number
-        company_name: string
-        yonghuming: string
-        [Key: string]: any
-    }
+    name: string
+    age: number
+    sf: number
 }
 
 
@@ -35,13 +23,13 @@ export class StoreService {
 
     public userInfo: UserInfo | undefined
     public counter: number = 0 //这种方式在使用该数据的组建中只能手动调用获取，而不能实时变化
-    public subject$ = new Subject<number>()
-    public account$ = new Subject<Account>()
+    public subject$ = new BehaviorSubject<number>(0)
+    public account$ = new BehaviorSubject<Account | null>(null)
     public account: Account | undefined
 
 
     constructor(private http: HttpClient) {
-        console.log(this.testParamDecorator(5, '装饰器'));
+
     }
 
     testParamDecorator(age: number, @ParamDecorator('996') name: string) {
@@ -50,10 +38,14 @@ export class StoreService {
     }
 
     fetchAccount() {
-        this.http.get<{ data: Account }>('/api/fun/getmenu').subscribe(res => {
-            this.account = res.data
-            this.account$.next(res.data)
+        this.http.get<Account>('/v1/account').subscribe(res => {
+            this.account = res
+            this.account$.next(res)
         })
+    }
+
+    fetchUserByid(id: string) {
+        return this.http.get<Account>('/v1/users/' + id)
     }
 
     fetchJsonServer() {
