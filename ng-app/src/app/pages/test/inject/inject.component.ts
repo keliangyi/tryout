@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { BehaviorSubject, fromEvent, interval, Observable, of, Subject, } from 'rxjs';
 import { catchError, delay, map, switchMap, takeWhile, tap, timeout, filter, } from 'rxjs/operators';
 import { appVersion } from 'src/app/app.module';
@@ -29,11 +29,15 @@ export class InjectComponent implements OnInit {
     public timeout$ = interval(1000)
     public username = 'v-model'
     public user$: Observable<Account | undefined> | undefined
+    public currentUrl$: Observable<string> | undefined
     public conter$: Subject<number> | undefined
     public counter: number | undefined
+
+
     constructor(
         @Inject(appVersion) public version: string,
         private route: ActivatedRoute,
+        private router: Router,
         private store: StoreService) {
 
     }
@@ -48,7 +52,6 @@ export class InjectComponent implements OnInit {
         this.user$ = route$.pipe(
             map(r => r.get('id')),
             switchMap(id => this.store.fetchUserByid(id!).pipe(map(i => {
-
                 return i.find(f => f.id === Number(id))
             }))),
         )
@@ -59,6 +62,10 @@ export class InjectComponent implements OnInit {
         })
         // this.testSwitchMap()
 
+        this.currentUrl$ = this.router.events.pipe(
+            filter((f): f is NavigationEnd => f instanceof NavigationEnd),
+            map((f: NavigationEnd) => f.url),
+        )
     }
 
     changeCounter() {

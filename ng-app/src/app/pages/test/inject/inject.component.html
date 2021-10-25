@@ -12,7 +12,9 @@
                 姓名：{{ user.name }}，年龄{{user.age}}，身份：{{ user.sf | identity }}
             </p>
         </ng-container>
-
+        <p>
+            currentPath:{{ currentUrl$ | async }}
+        </p>
     </mat-card>
     <mat-card class="card">
         <mat-card-title>依赖注入：</mat-card-title>

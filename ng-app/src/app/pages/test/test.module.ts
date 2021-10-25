@@ -1,14 +1,15 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 import { TestRoutingModule } from './test-routing.module';
 import { JdyModuleModule } from 'src/app/jdy-module';
-import { InjectComponent } from './index/inject.component';
+import { TestIndexComponent, InjectComponent, FlexGridComponent } from './index';
 
 
 @NgModule({
     declarations: [
-        InjectComponent
+        TestIndexComponent,
+        InjectComponent,
+        FlexGridComponent
     ],
     imports: [
         JdyModuleModule,

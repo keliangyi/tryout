@@ -11,7 +11,7 @@ import { MatCardModule } from '@angular/material/card';
 import { AppPipeModule } from './pipes/appPipe.module';
 import { LayoutComponent } from './components/layout/layout.component';
 import { MenuComponent } from './components/menu/menu.component';
-import { GridDirective, GridItemDirective, FlexItemDirective } from './directives';
+import { GridDirective, GridItemDirective, FlexItemDirective, IsLinkActiveDirective, } from './directives';
 import { HeaderComponent, IconComponent, NotfoundComponent, PageComponent, CountDownComponent, OnModelComponent } from './components';
 
 
@@ -28,6 +28,7 @@ import { HeaderComponent, IconComponent, NotfoundComponent, PageComponent, Count
         GridDirective,
         GridItemDirective,
         FlexItemDirective,
+        IsLinkActiveDirective,
         CountDownComponent,
         OnModelComponent,
     ],
@@ -69,7 +70,8 @@ import { HeaderComponent, IconComponent, NotfoundComponent, PageComponent, Count
 
         GridDirective,
         GridItemDirective,
-        FlexItemDirective
+        FlexItemDirective,
+        IsLinkActiveDirective
 
     ]
 })
