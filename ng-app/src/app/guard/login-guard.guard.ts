@@ -17,6 +17,7 @@ export class LoginGuardGuard implements CanActivate {
         route: ActivatedRouteSnapshot,
         state: RouterStateSnapshot,
     ): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+        console.log(this.store.account);
 
         if (this.store.account) {
             if (this.store.account.sf !== 0) {

@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
+import { HttpRes } from '../interceptors';
 import { ParamDecorator } from '../jdy-module';
 
 interface UserInfo {
@@ -9,6 +11,7 @@ interface UserInfo {
 }
 
 export interface Account {
+    id: number
     name: string
     age: number
     sf: number
@@ -38,18 +41,22 @@ export class StoreService {
     }
 
     fetchAccount() {
-        this.http.get<Account>('/v1/account').subscribe(res => {
+        this.http.get<Account>('/b/617607c2aa02be1d445e555c/latest').subscribe(res => {
             this.account = res
             this.account$.next(res)
         })
     }
 
     fetchUserByid(id: string) {
-        return this.http.get<Account>('/v1/users/' + id)
+        return this.http.get<Account[]>('/b/6176160faa02be1d445e5910/latest', {
+            params: {
+                id
+            }
+        })
     }
 
     fetchJsonServer() {
-        this.http.get<{ account: UserInfo }>('/v1').subscribe((r) => {
+        this.http.get<{ account: UserInfo }>('/b').subscribe((r) => {
             console.log('AccountComponent', r);
             this.userInfo = r.account
         })

@@ -9,3 +9,9 @@ Content-Type: application/json;charset=UTF-8
 
 ###
 GET {{host}}/v1?token={{token}} HTTP/1.1
+
+
+### 
+GET https://api.jsonbin.io/v3/b/617607c2aa02be1d445e555c
+X-Master-Key:$2b$10$z5Q3jOQLX4iU/Ajpc6HFOOBHQX3FEZH7imRH.Nbq3IIJy9TJjz3Fu
+Content-Type: application/json;charset=UTF-8

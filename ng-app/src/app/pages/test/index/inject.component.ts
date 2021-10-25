@@ -1,8 +1,9 @@
 import { Component, Inject, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BehaviorSubject, fromEvent, interval, Observable, of, Subject } from 'rxjs';
-import { catchError, delay, map, switchMap, takeWhile, tap, timeout } from 'rxjs/operators';
+import { BehaviorSubject, fromEvent, interval, Observable, of, Subject, } from 'rxjs';
+import { catchError, delay, map, switchMap, takeWhile, tap, timeout, filter, } from 'rxjs/operators';
 import { appVersion } from 'src/app/app.module';
+import { HttpRes } from 'src/app/interceptors';
 import { Confirmable, Emoji } from 'src/app/jdy-module';
 import { Account, StoreService } from 'src/app/services';
 
@@ -27,7 +28,7 @@ export class InjectComponent implements OnInit {
     public percent = 0.618321
     public timeout$ = interval(1000)
     public username = 'v-model'
-    public user$: Observable<Account> | undefined
+    public user$: Observable<Account | undefined> | undefined
     public conter$: Subject<number> | undefined
     public counter: number | undefined
     constructor(
@@ -46,7 +47,10 @@ export class InjectComponent implements OnInit {
 
         this.user$ = route$.pipe(
             map(r => r.get('id')),
-            switchMap(id => this.store.fetchUserByid(id!))
+            switchMap(id => this.store.fetchUserByid(id!).pipe(map(i => {
+
+                return i.find(f => f.id === Number(id))
+            }))),
         )
         // this.store.subject$.next(2)
         this.store.subject$.subscribe(d => {
