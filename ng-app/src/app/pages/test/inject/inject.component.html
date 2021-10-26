@@ -3,9 +3,9 @@
     <mat-card class="card">
         <mat-card-title>动态参数</mat-card-title>
         <p>
-            <button mat-raised-button [routerLink]="['/test',1]">id:1</button>
-            <button mat-raised-button [routerLink]="['/test',2]">id:2</button>
-            <button mat-raised-button [routerLink]="['/test',3]">id:3</button>
+            <button mat-raised-button [routerLink]="['/test/inject',1]">id:1</button>
+            <button mat-raised-button [routerLink]="['/test/inject',2]">id:2</button>
+            <button mat-raised-button [routerLink]="['/test/inject',3]">id:3</button>
         </p>
         <ng-container *ngIf="(user$ | async) as user">
             <p>
