@@ -8,8 +8,9 @@ const compiler = webpack(createConfig('production'))
 
 console.log('打包中...')
 
-compiler.run((err, stats) => {    
-    if(err){
+compiler.run((err, stats) => {
+    // console.error(err, stats)
+    if (err) {
         console.error(err)
     }
     compiler.close((closeErr) => {

@@ -36,15 +36,15 @@ app.use(async (ctx, next) => {
  */
 
 const options = {
-    key: fs.readFileSync(path.join(__dirname,'config/server.key'),'utf8'),
-    cert: fs.readFileSync(path.join(__dirname,'config/server.crt'),'utf8')
+    key: fs.readFileSync(path.join(__dirname, 'config/server.key'), 'utf8'),
+    cert: fs.readFileSync(path.join(__dirname, 'config/server.crt'), 'utf8')
 }
 
 // app.use(sslify()) 
 
 const httpsServer = https.createServer(app.callback()).listen('5959', () => {
-    console.log('httpsServer',5959);
-    
+    console.log('httpsServer', 5959);
+
 })
 
 const io = new Server(httpsServer)
@@ -53,20 +53,41 @@ io.on("connection", (socket) => {
     console.log(socket.id, '连接了');
     // const roomid = ''
     const c = new URLSearchParams(socket.request.url)
-    console.log(c);
+    console.log('URLSearchParams', c);
+    let counter = 0
+    let timer: ReturnType<typeof setInterval> | undefined = undefined
+    socket.on('msg', (data) => {
 
-    socket.on('msg',(data)=>{        
-        
-        console.log(data);
-        const isBig = data > 0.5 
+        const isBig = data > 0.5
+        const reset = data === 0
+
+        if (counter > 3) {
+            io.disconnectSockets(true)
+        }
+
+        if (reset && timer) {
+            clearInterval(timer)
+            counter = 0
+            socket.emit('msg', `你好浏览器，我已收到你传递的随机数。它是${isBig ? '大' : '小'}于0.5的，对吧？`, counter);
+        }
+
+        if (isBig) {
+            timer && clearInterval(timer)
+            timer = setInterval(() => {
+                counter += 1
+                console.log(counter);
+                socket.emit('msg', `你好浏览器，我已收到你传递的随机数。它是${isBig ? '大' : '小'}于0.5的，对吧？`, counter);
+            }, 1000)
+        }
 
 
-        socket.emit('msg',`你好浏览器，我已收到你传递的随机数。它是${isBig ? '大' : '小' }于0.5的，对吧？`);
-        
+
+
+
     })
-    
-    
+
+
 })
-  
+
 
 export default app
