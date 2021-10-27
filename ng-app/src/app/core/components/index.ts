@@ -1,3 +1,5 @@
+export * from './card/card.component'
+export * from './card/card-title.component'
 export * from './count-down/count-down.component'
 export * from './header/header.component'
 export * from './icon/icon.component'

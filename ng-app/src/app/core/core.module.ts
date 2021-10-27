@@ -1,3 +1,4 @@
+import { CardTitleComponent } from './components/card/card-title.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -12,7 +13,15 @@ import { AppPipeModule } from './pipes/appPipe.module';
 import { LayoutComponent } from './components/layout/layout.component';
 import { MenuComponent } from './components/menu/menu.component';
 import { GridDirective, GridItemDirective, FlexItemDirective, IsLinkActiveDirective, } from './directives';
-import { HeaderComponent, IconComponent, NotfoundComponent, PageComponent, CountDownComponent, OnModelComponent } from './components';
+import {
+    HeaderComponent,
+    IconComponent,
+    NotfoundComponent,
+    PageComponent,
+    CountDownComponent,
+    OnModelComponent,
+    CardComponent
+} from './components';
 
 
 
@@ -31,6 +40,8 @@ import { HeaderComponent, IconComponent, NotfoundComponent, PageComponent, Count
         IsLinkActiveDirective,
         CountDownComponent,
         OnModelComponent,
+        CardComponent,
+        CardTitleComponent,
     ],
     imports: [
         CommonModule,
@@ -64,6 +75,9 @@ import { HeaderComponent, IconComponent, NotfoundComponent, PageComponent, Count
         PageComponent,
         CountDownComponent,
         OnModelComponent,
+        CardComponent,
+        CardTitleComponent,
+
 
         AppPipeModule,
 

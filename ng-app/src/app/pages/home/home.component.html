@@ -1,9 +1,9 @@
 <app-page title="控制台">
     <mat-grid-list cols="24" gutterSize="24px" rowHeight="320px">
         <mat-grid-tile [colspan]="item.colspan" *ngFor="let item of cards">
-            <mat-card appFlexItem class="mat-elevation-z" style="height: 320px;">
-                <mat-card-title>{{item.title}}</mat-card-title>
-            </mat-card>
+            <ng-card appFlexItem class="mat-elevation-z" style="height: 320px;">
+                <ng-card-title>{{item.title}}</ng-card-title>
+            </ng-card>
         </mat-grid-tile>
     </mat-grid-list>
 </app-page>

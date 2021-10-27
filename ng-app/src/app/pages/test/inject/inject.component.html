@@ -1,7 +1,6 @@
 <app-page>
-
-    <mat-card class="card">
-        <mat-card-title>动态参数</mat-card-title>
+    <ng-card class="card">
+        <ng-card-title>动态参数</ng-card-title>
         <p>
             <button mat-raised-button [routerLink]="['/test/inject',1]">id:1</button>
             <button mat-raised-button [routerLink]="['/test/inject',2]">id:2</button>
@@ -15,9 +14,9 @@
         <p>
             currentPath:{{ currentUrl$ | async }}
         </p>
-    </mat-card>
-    <mat-card class="card">
-        <mat-card-title>依赖注入：</mat-card-title>
+    </ng-card>
+    <ng-card class="card">
+        <ng-card-title>依赖注入：</ng-card-title>
         <p>
             useValue inject version：{{ version }}
         </p>
@@ -30,8 +29,8 @@
         <p>
             <button (click)="changeCounter()">change counter</button>
         </p>
-    </mat-card>
-    <mat-card class="card">
+    </ng-card>
+    <ng-card class="card">
         <p>test decorator works!</p>
 
         <h3>装饰属性：{{ name }}</h3>
@@ -46,13 +45,13 @@
             <li appGridItem>4</li>
             <li appGridItem>5</li>
         </ul>
-    </mat-card>
-    <mat-card class="card">
-        <mat-card-title>倒计时：</mat-card-title>
+    </ng-card>
+    <ng-card class="card">
+        <ng-card-title>倒计时：</ng-card-title>
         <app-count-down [end]="endDate"></app-count-down>
-    </mat-card>
-    <mat-card class="card">
-        <mat-card-title>pipe:</mat-card-title>
+    </ng-card>
+    <ng-card class="card">
+        <ng-card-title>pipe:</ng-card-title>
         <div class="row">
             money :{{ money | currency:'CNY':'symbol':'8.1-2' }}
         </div>
@@ -92,15 +91,15 @@
         <div class="row">
             percent：{{ percent|percent:'1.2-2' }}
         </div>
-    </mat-card>
-    <mat-card class="card">
+    </ng-card>
+    <ng-card class="card">
         <p>自定义ngmodel</p>
         <app-on-model [(onModel)]='username'></app-on-model>
         <p>
             在app-on-model外面:{{username}}
         </p>
-    </mat-card>
-    <mat-card class="card">
+    </ng-card>
+    <ng-card class="card">
         <p>account works!</p>
         <div [ngSwitch]="sf">
             <div *ngSwitchCase="userSf.admin">admin</div>
@@ -120,5 +119,5 @@
         </p>
         <p>storeCounter:{{ count }}</p>
         <p #acc id="flag" *ngIf="flag">flagflagflagflagflagflag</p>
-    </mat-card>
+    </ng-card>
 </app-page>
