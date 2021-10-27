@@ -1,27 +1,7 @@
-<app-page [title]="'账号设置'">
+<app-page title="个人中心">
 
     <div extra>
         <small>帮助说明</small>
     </div>
-    <mat-card>
-        <p>account works!</p>
-        <div [ngSwitch]="sf">
-            <div *ngSwitchCase="userSf.admin">admin</div>
-            <div *ngSwitchCase="userSf.user">user</div>
-            <div *ngSwitchCase="userSf.super">super</div>
-            <div *ngSwitchCase="userSf.sub">sub</div>
-            <div *ngSwitchDefault>output2</div>
-        </div>
 
-        <p>diy pipe:{{ yjMoney | moneyPipe:2 }}</p>
-
-        <button (click)="calculate()">计算应缴金额</button>
-        <button (click)="increaseCounter()">counter +1</button>
-
-        <p *ngIf="account">
-            我是{{account.name}}，我今年{{ account.age }}岁了。
-        </p>
-        <p>storeCounter:{{ count }}</p>
-        <p #acc id="flag" *ngIf="flag">flagflagflagflagflagflag</p>
-    </mat-card>
 </app-page>

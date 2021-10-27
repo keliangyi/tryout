@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { ProjectRoutingModule } from './project-routing.module';
 import { ListComponent } from './list/list.component';
-import { JdyModuleModule } from 'src/app/jdy-module';
+import { CoreModule } from 'src/app/core';
 
 
 @NgModule({
@@ -11,7 +11,7 @@ import { JdyModuleModule } from 'src/app/jdy-module';
         ListComponent
     ],
     imports: [
-        JdyModuleModule,
+        CoreModule,
         ProjectRoutingModule
     ]
 })

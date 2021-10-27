@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { HeaderComponent } from './jdy-module';
-import { StoreService } from './services';
+import { HeaderComponent } from './core';
+import { AuthService, StoreService } from './services';
 
 @Component({
     selector: 'app-root',
@@ -14,13 +14,20 @@ export class AppComponent implements OnInit {
     yjMoney: number = 496.456
 
     @ViewChild('header') hd!: HeaderComponent
+    public loading = false
 
-    constructor(private store: StoreService) {
+
+
+
+    constructor(private store: StoreService, private auth: AuthService) {
 
     }
 
     ngOnInit(): void {
         this.store.fetchAccount()
+        this.auth.authLoading$.subscribe(r => {
+            this.loading = r
+        })
     }
 
     tirggerHeaderFn() {

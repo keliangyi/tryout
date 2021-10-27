@@ -4,7 +4,7 @@ import { BehaviorSubject, fromEvent, interval, Observable, of, Subject, } from '
 import { catchError, delay, map, switchMap, takeWhile, tap, timeout, filter, } from 'rxjs/operators';
 import { appVersion } from 'src/app/app.module';
 import { HttpRes } from 'src/app/interceptors';
-import { Confirmable, Emoji } from 'src/app/jdy-module';
+import { Confirmable, Emoji } from 'src/app/core';
 import { Account, StoreService } from 'src/app/services';
 
 @Component({

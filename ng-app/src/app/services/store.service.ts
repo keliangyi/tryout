@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 import { HttpRes } from '../interceptors';
-import { ParamDecorator } from '../jdy-module';
+import { ParamDecorator } from '../core';
 
 interface UserInfo {
     name: string
@@ -36,8 +36,11 @@ export class StoreService {
     }
 
     testParamDecorator(age: number, @ParamDecorator('996') name: string) {
-
         console.log('ParamDecorator：', StoreService.prototype, age, name);
+    }
+
+    verifyToken() {
+
     }
 
     fetchAccount() {

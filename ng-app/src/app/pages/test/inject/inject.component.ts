@@ -1,11 +1,19 @@
-import { Component, Inject, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, Inject, OnInit, Output, EventEmitter, Input, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { BehaviorSubject, fromEvent, interval, Observable, of, Subject, } from 'rxjs';
+import { BehaviorSubject, fromEvent, interval, Observable, of, Subject, Subscription, } from 'rxjs';
 import { catchError, delay, map, switchMap, takeWhile, tap, timeout, filter, } from 'rxjs/operators';
 import { appVersion } from 'src/app/app.module';
 import { HttpRes } from 'src/app/interceptors';
-import { Confirmable, Emoji } from 'src/app/jdy-module';
+import { Confirmable, Emoji } from 'src/app/core';
 import { Account, StoreService } from 'src/app/services';
+
+
+export enum userSf {
+    user = 0,
+    admin = 1,
+    sub = 2,
+    super = 3,
+}
 
 @Component({
     selector: 'app-inject',
@@ -33,6 +41,47 @@ export class InjectComponent implements OnInit {
     public conter$: Subject<number> | undefined
     public counter: number | undefined
 
+
+
+    public userSf = userSf
+    public sf: userSf = userSf.sub
+    public yjMoney: number = 156.664
+    public account: Account | undefined
+    public flag: boolean = true
+    public count: number = 0
+    public timer: ReturnType<typeof setInterval> | undefined
+    public store$: Subscription | undefined
+
+    @ViewChild('acc', { static: true }) myacc: ElementRef<HTMLDivElement> | undefined
+
+
+    ngOnDestroy() {
+        if (this.timer) {
+            clearInterval(this.timer)
+        }
+    }
+
+    ngAfterViewInit() {
+        // dom 加载完成
+
+        //原生的方式
+        const dom = <HTMLDivElement>document.getElementById('flag')
+        dom.style.color = 'red'
+        console.log(dom);
+
+        //viewChildref
+        const vc = this.myacc?.nativeElement
+        console.log(vc);
+    }
+
+    calculate() {
+        this.yjMoney = Math.random() * 100
+        this.store.fetchJsonServer()
+    }
+
+    increaseCounter() {
+        this.store.increaseCounter()
+    }
 
     constructor(
         @Inject(appVersion) public version: string,
@@ -66,6 +115,10 @@ export class InjectComponent implements OnInit {
             filter((f): f is NavigationEnd => f instanceof NavigationEnd),
             map((f: NavigationEnd) => f.url),
         )
+
+        this.store$ = this.store.subject$.subscribe((c) => {
+            this.count = c
+        })
     }
 
     changeCounter() {

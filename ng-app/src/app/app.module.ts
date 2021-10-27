@@ -7,9 +7,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import zh from '@angular/common/locales/zh-Hans'
 
 import { AppComponent } from 'src/app/app.component';
-import { LoginGuardGuard } from 'src/app/guard/login-guard.guard';
-import { JdyModuleModule } from 'src/app/jdy-module/jdy.module';
-import { NotfoundComponent } from 'src/app/jdy-module/components';
+import { AuthGuard } from 'src/app/guard/auth.guard'
+import { CoreModule } from 'src/app/core/core.module';
+import { NotfoundComponent } from 'src/app/core/components';
 
 import { RequestInterceptor, ResponseInterceptor } from 'src/app/interceptors';
 import { registerLocaleData } from '@angular/common';
@@ -33,12 +33,13 @@ import { registerLocaleData } from '@angular/common';
  */
 
 const routes: Routes = [
-    { path: '', loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule) },
+    { path: '', loadChildren: () => import('./pages/home/home.module').then(m => m.HomeModule), canActivate: [AuthGuard] },
     { path: "404", component: NotfoundComponent },
 
-    { path: 'project', loadChildren: () => import('./pages/project/project.module').then(m => m.ProjectModule), canActivate: [LoginGuardGuard] },
-    { path: 'form', loadChildren: () => import('./pages/form/form.module').then(m => m.FormModule), canActivate: [LoginGuardGuard] },
-    { path: 'account', loadChildren: () => import('./pages/account/account.module').then(m => m.AccountModule), canActivate: [LoginGuardGuard] },
+    { path: 'passport', loadChildren: () => import('./pages/passport/passport.module').then(m => m.PassportModule), },
+    { path: 'project', loadChildren: () => import('./pages/project/project.module').then(m => m.ProjectModule), canActivate: [AuthGuard] },
+    { path: 'form', loadChildren: () => import('./pages/form/form.module').then(m => m.FormModule), canActivate: [AuthGuard] },
+    { path: 'account', loadChildren: () => import('./pages/account/account.module').then(m => m.AccountModule), canActivate: [AuthGuard] },
     { path: 'test', loadChildren: () => import('./pages/test/test.module').then(m => m.TestModule), },
     { path: "**", redirectTo: '/404', pathMatch: 'full' }
 ]
@@ -50,7 +51,7 @@ export const appVersion = new InjectionToken<string>('version')
         BrowserModule,
         HttpClientModule,
         RouterModule.forRoot(routes),
-        JdyModuleModule,
+        CoreModule,
         BrowserAnimationsModule,
     ],
     declarations: [AppComponent,],

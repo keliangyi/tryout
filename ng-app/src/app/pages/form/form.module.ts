@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import { FormRoutingModule } from './form-routing.module';
-import { JdyModuleModule } from 'src/app/jdy-module';
+import { CoreModule } from 'src/app/core';
 import { IndexComponent } from './index/index.component';
 
 
@@ -10,7 +10,7 @@ import { IndexComponent } from './index/index.component';
         IndexComponent
     ],
     imports: [
-        JdyModuleModule,
+        CoreModule,
         FormRoutingModule
     ]
 })

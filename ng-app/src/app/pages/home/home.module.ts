@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home.component';
-import { JdyModuleModule } from 'src/app/jdy-module';
+import { CoreModule } from 'src/app/core';
 
 
 const routes: Routes = [
@@ -14,7 +14,7 @@ const routes: Routes = [
         HomeComponent
     ],
     imports: [
-        JdyModuleModule,
+        CoreModule,
         RouterModule.forChild(routes)
     ]
 })

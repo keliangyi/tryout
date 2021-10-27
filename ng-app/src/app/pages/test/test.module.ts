@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import { TestRoutingModule } from './test-routing.module';
-import { JdyModuleModule } from 'src/app/jdy-module';
+import { CoreModule } from 'src/app/core';
 import { TestIndexComponent, InjectComponent, FlexGridComponent } from './index';
 
 
@@ -12,7 +12,7 @@ import { TestIndexComponent, InjectComponent, FlexGridComponent } from './index'
         FlexGridComponent
     ],
     imports: [
-        JdyModuleModule,
+        CoreModule,
         TestRoutingModule
     ]
 })

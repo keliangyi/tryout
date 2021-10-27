@@ -15,8 +15,9 @@ export class RequestInterceptor implements HttpInterceptor {
 
     intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
         const token = localStorage.getItem('token') || 'tokenFromInterceptor'
+        const url = request.url.startsWith('/api') ? request.url : environment.apiUrl + request.url
         const newRequest = request.clone({
-            url: environment.apiUrl + request.url,
+            url,
             setHeaders: {
                 token,
                 'Content-Type': 'application/json',

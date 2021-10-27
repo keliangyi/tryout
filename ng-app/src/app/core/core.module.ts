@@ -75,4 +75,4 @@ import { HeaderComponent, IconComponent, NotfoundComponent, PageComponent, Count
 
     ]
 })
-export class JdyModuleModule { }
+export class CoreModule { }
