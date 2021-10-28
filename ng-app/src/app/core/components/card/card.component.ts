@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, HostBinding, Input, OnInit, ChangeDetectionStrategy, TemplateRef } from '@angular/core';
 
 @Component({
     selector: 'ng-card',
@@ -18,6 +18,8 @@ export class CardComponent implements OnInit {
     @HostBinding('class.ng-card-boxShadow') boxShadow = false
 
 
+    @Input() ngTitle?: string | TemplateRef<void>
+    @Input() ngExtra?: string | TemplateRef<void>
 
 
     constructor() { }
