@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import logo from './logo.svg'
 import { Tc as todo } from './model'
-import './App.scss'
+import './App.css'
 import { observer } from 'mobx-react-lite'
 
 // const todo = new Todo()
