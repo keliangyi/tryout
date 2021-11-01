@@ -1,23 +1,12 @@
-import React, { FC } from 'react'
+import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
-import { Tc as todo } from './model'
-import { observer } from 'mobx-react-lite'
-import ClassAndFC from './pages/class-and-fc'
-
-// const todo = new Todo()
-const Count: FC = observer(() => {
-	// const todo = useTodo()
-	return <h1>todo counts：{todo.count}</h1>
-})
 
 ReactDOM.render(
 	<React.StrictMode>
-		{/* <App />
-    <Count /> */}
-		<ClassAndFC />
+		<App />
 	</React.StrictMode>,
 	document.getElementById('root')
 )

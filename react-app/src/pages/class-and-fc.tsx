@@ -1,14 +1,22 @@
-import { Component, FC, useEffect, useState } from 'react'
+import { ChangeEvent, Component, FC, useEffect, useState } from 'react'
 
 const ClassAndFC = () => {
 	const [name, setName] = useState('dan')
-	useEffect(() => {
-		setTimeout(() => {
-			setName('jack')
-		}, 2000)
-	}, [])
+
+	const handleNameChange = (e: ChangeEvent<HTMLSelectElement>) => {
+		setName(e.target.value)
+	}
+
 	return (
 		<div>
+			<label htmlFor="">
+				<span>先点击下面的按钮，然后3s内修改名称：</span>
+				<select onChange={handleNameChange} value={name}>
+					<option value="dan">dan</option>
+					<option value="tom">tom</option>
+					<option value="jack">jack</option>
+				</select>
+			</label>
 			<Com name={name} />
 			<Func name={name} />
 		</div>

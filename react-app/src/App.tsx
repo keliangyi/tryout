@@ -1,54 +1,52 @@
-import React, { useEffect } from 'react'
-import logo from './logo.svg'
+import { BrowserRouter, Switch, Route, Link } from 'react-router-dom'
 import { Tc as todo } from './model'
-import './App.css'
-import { observer } from 'mobx-react-lite'
 
+import { observer } from 'mobx-react-lite'
+import SetState from './pages/set-state'
+import ClassAndFC from './pages/class-and-fc'
+import './App.css'
 // const todo = new Todo()
 
-function App() {
-	useEffect(() => {
-		// const fetchData = async () => {
-		// 	const res = await fetch('http://192.168.0.7:5959/user/12?type=1',{
-		// 		mode:"cors",
-		// 		headers:{
-		// 			'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',
-		// 		}
-		// 	})
-		// 	console.log(res);
-		// }
-		// fetchData()
-	}, [])
-
+const Home = observer(() => {
 	return (
 		<div className="App">
-			<header className="App-header">
-				<img src={logo} className="App-logo" alt="logo" />
-				<p>
-					Edit <code>src/App.tsx</code> and save to reload.
-				</p>
-				<a
-					className="App-link"
-					href="https://reactjs.org"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					Learn React
-				</a>
-				<h1>{todo.count}</h1>
-				<button
-					onClick={() =>
-						todo.createTodo({
-							name: 'mobx todo',
-							desc: '第一个todo',
-						})
-					}
-				>
-					create new todo
-				</button>
-			</header>
+			<button
+				onClick={() =>
+					todo.createTodo({
+						name: 'mobx todo',
+						desc: '第一个todo',
+					})
+				}
+			>
+				create new todo {todo.count}
+			</button>
 		</div>
+	)
+})
+
+function App() {
+	return (
+		<BrowserRouter>
+			<nav>
+				<ul>
+					<li>
+						<Link to="/class-func">类组件和函数组件</Link>
+					</li>
+					<li>
+						<Link to="setstate">setState</Link>
+					</li>
+				</ul>
+			</nav>
+			<hr />
+			<Switch>
+				<Route path="/" component={Home} exact />
+				<Route path="/setstate" component={SetState} />
+				<Route path="/class-func">
+					<ClassAndFC />
+				</Route>
+			</Switch>
+		</BrowserRouter>
 	)
 }
 
-export default observer(App)
+export default App
