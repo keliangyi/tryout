@@ -4,12 +4,12 @@ import { Component, HostBinding, Input, OnInit, ChangeDetectionStrategy } from '
     selector: 'ng-card-title',
     template: `
         <div>
-        45
+            <ng-content></ng-content>
         </div>
     `,
     styleUrls: ['./card.component.less'],
     host: {
-        '[class.ng-card]': "true"
+        '[class.ng-card-title]': "true"
     },
     changeDetection: ChangeDetectionStrategy.OnPush
 })

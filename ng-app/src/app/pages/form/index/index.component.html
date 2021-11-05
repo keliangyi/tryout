@@ -1,10 +1,20 @@
 <app-page title="表单设置">
     <div class="form">
         <div class="components">
-            <ng-card>
+            <ng-card style="overflow: hidden;">
                 <ng-card-title>
-                    组件
+                    基础字段
                 </ng-card-title>
+                <div>
+                    <ul cdkDropList #cateList="cdkDropList" [cdkDropListData]="categories" cdkDropListSortingDisabled
+                        [cdkDropListConnectedTo]="[contentList]" class="cates" (cdkDropListDropped)="drop($event)"
+                        (cdkDropListExited)="exited($event)">
+                        <li class="cate-item" *ngFor="let item of categories" cdkDrag>
+                            <div class="cate-item" *cdkDragPlaceholder><a>{{item.title}}</a></div>
+                            <a>{{item.title}}</a>
+                        </li>
+                    </ul>
+                </div>
             </ng-card>
         </div>
         <div class="result">
@@ -13,14 +23,17 @@
                     表单内容
                 </h3>
                 <div>
-                    <button mat-raised-button color="primary">保存</button>
-                    <button mat-raised-button color="primary" disabled>编辑</button>
-                    <button mat-raised-button color="accent">发布</button>
-                    <button mat-raised-button color="warn">删除</button>
+                    <button mat-raised-button color="primary">保存设置</button>
                 </div>
             </div>
-            <ng-card class="ng-card" #resultWrapper>
-                <div style="height: 5000px;">{{top}}</div>
+            <ng-card class="ng-card" #resultWrapper cdkDropList #contentList="cdkDropList" [cdkDropListData]="content"
+                (cdkDropListDropped)="drop($event)">
+
+                <div class="example-container">
+                    <div>
+                        <div class="example-box" *ngFor="let item of content" cdkDrag>{{item.title}}</div>
+                    </div>
+                </div>
             </ng-card>
         </div>
         <div class="property">
