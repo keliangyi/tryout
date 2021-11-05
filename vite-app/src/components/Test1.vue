@@ -1,5 +1,6 @@
 
 <template>
+    <Child @onSend="handleGetUsername" :msg="key"/>
    <div>
         <h1 @click="changeMsg()">{{ msg }}</h1>  
         <h1 >{{ reverse }}</h1>  
@@ -8,6 +9,7 @@
    </div>
 </template>
 <script>
+import Child from './Child.vue'
 export default {
     name:"test",
     data(){
@@ -16,12 +18,18 @@ export default {
             key:'color'
         }
     },
-    
+    components:{
+        Child
+    },
     methods:{
         changeMsg() {
             console.log(this);
             this.msg = 'sb'
             this.key = 'id'
+        },
+        handleGetUsername(username){
+            console.log('this is from Child:',username);
+            this.msg = username
         }
     },
     computed:{
@@ -32,7 +40,7 @@ export default {
     watch:{
         msg(newVal, oldVal){
             if(newVal.length > 5){
-                alert('不能大于五')
+                alert('msg 长度不能大于五')
                 this.msg = oldVal
             }
         }
