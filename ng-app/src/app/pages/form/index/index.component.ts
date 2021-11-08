@@ -1,5 +1,5 @@
 import { CdkDragDrop, CdkDragStart, moveItemInArray, copyArrayItem, transferArrayItem, CdkDragExit } from '@angular/cdk/drag-drop';
-import { AfterViewInit, Component, ElementRef, OnInit, Renderer2, ViewChild, ViewChildren } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnChanges, OnInit, Renderer2, ViewChild, ViewChildren } from '@angular/core';
 
 type A = 'a' | 'b' | 'f'
 
@@ -12,14 +12,16 @@ interface ICate {
     title: string
     id: number,
     icon?: string
+    [key: string]: any
 }
+
 
 @Component({
     selector: 'app-index',
     templateUrl: './index.component.html',
     styleUrls: ['./index.component.less']
 })
-export class IndexComponent implements OnInit, AfterViewInit {
+export class IndexComponent implements OnInit, AfterViewInit, OnChanges {
 
     public rowHeight = innerHeight - 130
 
@@ -27,6 +29,7 @@ export class IndexComponent implements OnInit, AfterViewInit {
 
     timer: ReturnType<typeof setInterval> | undefined
     top: number = 0
+    editedKey: string = ''
 
     public categories: Array<ICate> = [
         { title: '单行文本', id: 1 },
@@ -39,51 +42,63 @@ export class IndexComponent implements OnInit, AfterViewInit {
         { title: '分割线', id: 8 },
     ]
 
-    public content: Array<ICate> = [
-
-    ]
+    public content: Array<ICate> = []
 
     constructor(private rd2: Renderer2) { }
 
-    todo = [
-        'Get to work',
-        'Pick up groceries',
-        'Go home',
-        'Fall asleep'
-    ];
-    done = [
-        'Get up',
-        'Brush teeth',
-        'Take a shower',
-        'Check e-mail',
-        'Walk dog'
-    ];
-    drop(event: CdkDragDrop<any[]>) {
 
+    drop(event: CdkDragDrop<any[]>) {
         if (event.previousContainer !== event.container) {
-            copyArrayItem(event.previousContainer.data,
+            const randomKey = Math.random().toString(32).substring(2, 10)
+            const nr = event.previousContainer.data.map((i, idx) => {
+                if (idx === event.previousIndex) {
+                    return { ...i, key: randomKey }
+                }
+                Reflect.deleteProperty(i, 'key')
+                return i
+            })
+            this.editedKey = randomKey
+            copyArrayItem(nr,
                 event.container.data,
                 event.previousIndex,
-                event.currentIndex);
+                event.currentIndex)
+
         } else {
-
             moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-
         }
+        if (event.previousContainer.data) {
+            this.categories = this.categories.filter(f => !f.temp)
+        }
+    }
+
+    exited(event: CdkDragExit<ICate[], any>) {
+        const currentIdx = event.container.data.findIndex(f => f.id === event.item.data.id)
+        this.categories.splice(currentIdx + 1, 0, { ...event.item.data, temp: true })
+    }
+
+    entered() {
+        this.categories = this.categories.filter(f => !f.temp)
+    }
+
+
+    handleSave() {
+        console.log(this.content);
 
     }
 
-    exited(event: CdkDragExit<any[]>) {
-        console.log('exited', event);
-        console.log(this.categories);
+
+    ngOnInit(): void {
 
     }
-    ngOnInit(): void { }
 
     ngAfterViewInit() {
         // this.testScrollTop()
     }
 
+    ngOnChanges() {
+        console.log(this.content);
+
+    }
 
 
     testScrollTop() {

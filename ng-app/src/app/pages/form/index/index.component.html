@@ -6,10 +6,11 @@
                     基础字段
                 </ng-card-title>
                 <div>
-                    <ul cdkDropList #cateList="cdkDropList" [cdkDropListData]="categories" cdkDropListSortingDisabled
-                        [cdkDropListConnectedTo]="[contentList]" class="cates" (cdkDropListDropped)="drop($event)"
+                    <ul class="cates" cdkDropList #cateList="cdkDropList" [cdkDropListData]="categories"
+                        cdkDropListSortingDisabled [cdkDropListConnectedTo]="[contentList]"
+                        (cdkDropListEntered)="entered()" (cdkDropListDropped)="drop($event)"
                         (cdkDropListExited)="exited($event)">
-                        <li class="cate-item" *ngFor="let item of categories" cdkDrag>
+                        <li class="cate-item" *ngFor="let item of categories" cdkDrag [cdkDragData]="item">
                             <div class="cate-item" *cdkDragPlaceholder><a>{{item.title}}</a></div>
                             <a>{{item.title}}</a>
                         </li>
@@ -23,15 +24,24 @@
                     表单内容
                 </h3>
                 <div>
-                    <button mat-raised-button color="primary">保存设置</button>
+                    <button mat-raised-button color="primary" (click)="handleSave()">保存设置</button>
                 </div>
             </div>
             <ng-card class="ng-card" #resultWrapper cdkDropList #contentList="cdkDropList" [cdkDropListData]="content"
                 (cdkDropListDropped)="drop($event)">
-
-                <div class="example-container">
+                <div class="content">
                     <div>
-                        <div class="example-box" *ngFor="let item of content" cdkDrag>{{item.title}}</div>
+                        <div class="result-item" [ngClass]="{active: editedKey === item.key}"
+                            (click)="editedKey = item.key" *ngFor="let item of content" cdkDrag>
+                            <p class="title">{{item.title}} -- {{item.key}}</p>
+                            <div [ngSwitch]="item.id">
+                                <div *ngSwitchCase="1"> <input readonly /></div>
+                                <div *ngSwitchCase="2"> <textarea readonly></textarea></div>
+                                <div *ngSwitchCase="3"> <input type="number" readonly /></div>
+                                <div *ngSwitchDefault>output2</div>
+                            </div>
+                            <!-- <h1 *cdkDragPlaceholder> dfagfa </h1> -->
+                        </div>
                     </div>
                 </div>
             </ng-card>
