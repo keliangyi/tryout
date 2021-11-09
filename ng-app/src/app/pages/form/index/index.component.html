@@ -51,6 +51,12 @@
                 <ng-card-title>
                     属性
                 </ng-card-title>
+                <div *ngIf="(editedKey) as edit">
+                    <p>标题</p>
+                    <div>
+                        <input />
+                    </div>
+                </div>
             </ng-card>
         </div>
     </div>
