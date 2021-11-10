@@ -22,6 +22,7 @@ import {
     OnModelComponent,
     CardComponent
 } from './components';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -46,6 +47,8 @@ import {
     imports: [
         CommonModule,
         RouterModule,
+        FormsModule,
+        ReactiveFormsModule,
         AppPipeModule,
         DragDropModule,
         MatRippleModule,
@@ -57,6 +60,8 @@ import {
     ],
     exports: [
         CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
         DragDropModule,
         MatRippleModule,
         MatInputModule,
@@ -64,6 +69,7 @@ import {
         MatCardModule,
         MatGridListModule,
         MatSnackBarModule,
+
 
 
 

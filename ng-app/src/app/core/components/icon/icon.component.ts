@@ -1,6 +1,5 @@
-import { Component, Input, OnInit, } from '@angular/core';
-
-const url = '//at.alicdn.com/t/font_2878081_qk8hw29u9qm.js'
+import { ChangeDetectionStrategy, Component, Input, OnInit, } from '@angular/core';
+const url = '//at.alicdn.com/t/font_2878081_oh9rngrbrai.js'
 
 const scripts = new Set<string>()
 
@@ -17,9 +16,13 @@ const createIconByIconfont = (url: string) => {
 createIconByIconfont(url)
 
 @Component({
-    selector: 'app-icon',
+    selector: 'ng-icon',
     templateUrl: './icon.component.html',
     styleUrls: ['./icon.component.less'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    host: {
+        '[class.ng-icon]': "true"
+    },
     // encapsulation: ViewEncapsulation.None
 })
 export class IconComponent implements OnInit {

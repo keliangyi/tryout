@@ -1,32 +1,3 @@
-:root {
-    --primary-color: #408cfd;
-    --secondary-color: #faca44;
-    --dark-color: #0d152c;
-    --bg-color: #f4f9fd;
-    --border-color: #e8e8e8;
-    --red: #f54545;
-    --amber: #ffc107;
-    --purple: #db94e9;
-    --teal: #009688;
-    --gold: #e3af20;
-    --green: #08cb49;
-    --pink: #d7a8df;
-    --yellow: #efc87b;
-
-    --desc: rgba(0, 0, 0, 0.45);
-    --black: rgba(0, 0, 0, 1);
-
-    --page-padding: 16px;
-    --aside-width: 220px;
-
-    --border-radius-sm: 6px;
-    --border-radius: 12px;
-
-    --box-shadow: 0 0 20px -10px rgba(0, 0, 0, 0.15);
-
-    --border: 1px solid #e8e8e8;
-}
-
 * {
     margin: 0;
     padding: 0;
@@ -73,6 +44,9 @@ button {
     background-color: rgba(0, 0, 0, 0.171);
 }
 
+.text-center {
+    text-align: center;
+}
 .sub-title {
     font-size: 20px;
     font-weight: normal;
@@ -89,6 +63,43 @@ button {
 }
 .mat-card-title {
     font-size: 20px;
+}
+
+.mat-input-element {
+    box-sizing: border-box;
+    margin: 0;
+    font-variant: tabular-nums;
+    list-style: none;
+    font-feature-settings: "tnum";
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    min-width: 0;
+    padding: 4px 11px;
+    color: #000000d9;
+    font-size: 14px;
+    line-height: 1.5715;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #d9d9d9;
+    border-radius: 2px;
+    transition: all 0.3s;
+    &:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 2px #1890ff33;
+        border-right-width: 1px !important;
+        outline: 0;
+    }
+}
+
+.form-item {
+    margin-bottom: 12px;
+    &-label {
+        padding: 0 0 8px;
+        line-height: 1.5715;
+        white-space: initial;
+        text-align: left;
+    }
 }
 
 /**

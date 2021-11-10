@@ -10,7 +10,7 @@
                 <li *ngFor="let item of menus" class="menu-item" routerLinkActive="active"
                     [routerLinkActiveOptions]="{ exact:item.url == '/' }">
                     <a [routerLink]="[item.url]" matRipple>
-                        <app-icon *ngIf="item.icon" [type]="item.icon" class="icon"></app-icon>
+                        <ng-icon *ngIf="item.icon" [type]="item.icon" class="icon"></ng-icon>
                         <span>{{ item.title }}</span>
                     </a>
                 </li>

@@ -1,23 +1,22 @@
 <app-page title="表单设置">
     <div class="form">
-        <div class="components">
-            <ng-card style="overflow: hidden;">
-                <ng-card-title>
-                    基础字段
-                </ng-card-title>
-                <div>
-                    <ul class="cates" cdkDropList #cateList="cdkDropList" [cdkDropListData]="categories"
-                        cdkDropListSortingDisabled [cdkDropListConnectedTo]="[contentList]"
-                        (cdkDropListEntered)="entered()" (cdkDropListDropped)="drop($event)"
-                        (cdkDropListExited)="exited($event)">
-                        <li class="cate-item" *ngFor="let item of categories" cdkDrag [cdkDragData]="item">
-                            <div class="cate-item" *cdkDragPlaceholder><a>{{item.title}}</a></div>
-                            <a>{{item.title}}</a>
-                        </li>
-                    </ul>
-                </div>
-            </ng-card>
-        </div>
+        <ng-card class="components">
+            <ng-card-title>
+                基础字段
+            </ng-card-title>
+            <div>
+                <ul class="cates" cdkDropList #cateList="cdkDropList" [cdkDropListData]="categories"
+                    cdkDropListSortingDisabled [cdkDropListConnectedTo]="[contentList]" (cdkDropListEntered)="entered()"
+                    (cdkDropListDropped)="drop($event)" (cdkDropListExited)="exited($event)">
+                    <li class="cate-item" *ngFor="let item of categories" cdkDrag [cdkDragData]="item">
+                        <div class="cate-placeholder" *cdkDragPlaceholder>{{item.title}}</div>
+                        <a>
+                            <ng-icon [type]="item.icon"></ng-icon> {{item.title}}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </ng-card>
         <div class="result">
             <div style="display: flex;justify-content:space-between">
                 <h3 class="sub-title">
@@ -32,12 +31,18 @@
                 <div class="content">
                     <div>
                         <div class="result-item" [ngClass]="{active: editedKey === item.key}"
-                            (click)="editedKey = item.key" *ngFor="let item of content" cdkDrag>
-                            <p class="title">{{item.title}} -- {{item.key}}</p>
+                            (click)="handleChangeActive(item.key)" *ngFor="let item of content" cdkDrag>
+                            <p class="title">{{item.title}}</p>
                             <div [ngSwitch]="item.id">
-                                <div *ngSwitchCase="1"> <input readonly /></div>
-                                <div *ngSwitchCase="2"> <textarea readonly></textarea></div>
-                                <div *ngSwitchCase="3"> <input type="number" readonly /></div>
+                                <div *ngSwitchCase="1">
+                                    <input matInput readonly [placeholder]="item.placeholder!" />
+                                </div>
+                                <div *ngSwitchCase="2">
+                                    <textarea matInput rows="5" readonly [placeholder]="item.placeholder!"></textarea>
+                                </div>
+                                <div *ngSwitchCase="3">
+                                    <input matInput readonly type="number" [placeholder]="item.placeholder!" />
+                                </div>
                                 <div *ngSwitchDefault>output2</div>
                             </div>
                             <!-- <h1 *cdkDragPlaceholder> dfagfa </h1> -->
@@ -46,18 +51,27 @@
                 </div>
             </ng-card>
         </div>
-        <div class="property">
-            <ng-card>
-                <ng-card-title>
-                    属性
-                </ng-card-title>
-                <div *ngIf="(editedKey) as edit">
-                    <p>标题</p>
-                    <div>
-                        <input />
+        <ng-card class="property">
+            <ng-card-title>
+                属性
+            </ng-card-title>
+            <div *ngIf="editedKey">
+                <form class="property-form" [formGroup]="propForm">
+                    <div class="form-item">
+                        <p class="form-item-label">标题</p>
+                        <div>
+                            <input matInput formControlName="title" placeholder="请输入标题" />
+                        </div>
                     </div>
-                </div>
-            </ng-card>
-        </div>
+                    <div class="form-item">
+                        <p class="form-item-label">提示文字</p>
+                        <div>
+                            <input matInput formControlName="placeholder" placeholder="请输入提示文字" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </ng-card>
     </div>
 </app-page>

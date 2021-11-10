@@ -13,6 +13,7 @@ import { NotfoundComponent } from 'src/app/core/components';
 
 import { RequestInterceptor, ResponseInterceptor } from 'src/app/interceptors';
 import { registerLocaleData } from '@angular/common';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 
 
@@ -52,6 +53,7 @@ export const appVersion = new InjectionToken<string>('version')
         HttpClientModule,
         RouterModule.forRoot(routes),
         CoreModule,
+
         BrowserAnimationsModule,
     ],
     declarations: [AppComponent,],

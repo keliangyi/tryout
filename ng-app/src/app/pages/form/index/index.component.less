@@ -12,56 +12,46 @@
     border: var(--border);
     cursor: pointer;
     background-color: #fff;
+    user-select: none;
+
     .title {
         margin-bottom: 8px;
     }
-    &:hover,
-    &.active {
+    &:hover {
         background-color: var(--bg-color);
+    }
+    &.active {
+        background-color: var(--primary-fade-50);
     }
 
     .title {
         font-weight: bold;
     }
+}
 
-    input,
-    textarea {
-        display: block;
-        width: 60%;
-        margin-top: 12px;
-        line-height: 36px;
-        border: var(--border);
-        outline: none;
-        pointer-events: none;
-    }
-
-    textarea {
-        line-height: 68px;
-    }
+.ng-icon {
+    color: var(--primary-color);
 }
 
 .form {
-    display: flex;
+    display: grid;
+    gap: 24px;
+    grid-template-columns: 256px 1fr 400px;
+    grid-template-areas: "components result property";
+    height: calc(100vh - 130px);
 
-    .components,
-    .property {
-        flex-shrink: 0;
-        flex-basis: 256px;
-        height: calc(100vh - 130px);
-    }
-    .property {
-        flex-basis: 400px;
-    }
-    .ng-card {
+    .components {
         height: inherit;
-        overflow-y: auto;
+        overflow: hidden;
     }
+
     .result {
-        flex: 1;
-        margin: 0 24px;
-        height: calc(100vh - 178px);
+        display: flex;
+        flex-direction: column;
+        height: inherit;
         .ng-card {
             margin-top: 12px;
+            overflow-y: auto;
             min-height: 500px;
         }
 
@@ -70,42 +60,45 @@
         }
         .cdk-drag-placeholder {
             width: 100%;
-            height: 100px;
+            min-height: 100px;
             border: 2px dashed var(--primary-color);
-        }
-    }
-
-    .cates {
-        display: flex;
-        flex-wrap: wrap;
-        .cate-item {
-            width: 50%;
-            flex: 0 1 auto;
-
-            a {
-                display: block;
-                margin: 6px;
-                padding: 6px 12px;
-                border-radius: 4px;
-                border: 1px solid #e8e8e8;
-                background-color: #fff;
-                cursor: pointer;
+            &.cate-placeholder {
+                display: flex;
+                align-items: center;
+                justify-content: center;
             }
         }
     }
 
-    .cdk-drag-preview {
-        width: 100%;
-        height: 100px;
-        background-color: red;
+    .property {
+        &-form {
+            margin-top: 12px;
+        }
+    }
+
+    .cates {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        margin-top: 12px;
+        .cate-item {
+            display: block;
+            padding: 6px 12px;
+            border-radius: 4px;
+            border: 1px solid #e8e8e8;
+            background-color: #fff;
+            cursor: pointer;
+        }
     }
 }
 
 ::ng-deep .cdk-drag-preview.cate-item a {
-    text-align: center;
-    padding: 6px 12px;
+    display: block;
+    width: 108px;
+    padding: 8px 12px;
     border-radius: 4px;
     border: var(--border);
+    text-align: center;
     cursor: pointer;
     background-color: #fff;
 }
