@@ -27,8 +27,6 @@ const defaultCates: Array<ICate> = [
     { title: '分割线', id: 8, icon: "icon-line" },
 ]
 
-
-
 export const HASOPTION = [5, 6, 7]
 
 export class Field {
@@ -67,9 +65,9 @@ export class Field {
     private initOptions(controlType: number): Field['options'] {
         if (HASOPTION.includes(controlType)) {
             return [
-                { title: "选项1", value: 1 },
-                { title: "选项2", value: 2 },
-                { title: "选项3", value: 3 },
+                { title: "选项一", value: 1 },
+                { title: "选项二", value: 2 },
+                { title: "选项三", value: 3 },
             ]
         }
         return []
