@@ -65,7 +65,8 @@ button {
     font-size: 20px;
 }
 
-.mat-input-element {
+.mat-input-element,
+.mat-select {
     box-sizing: border-box;
     margin: 0;
     font-variant: tabular-nums;
@@ -89,6 +90,13 @@ button {
         box-shadow: 0 0 0 2px #1890ff33;
         border-right-width: 1px !important;
         outline: 0;
+    }
+}
+
+.mat-checkbox,
+.mat-radio-button {
+    &:not(:last-child) {
+        margin-right: 12px;
     }
 }
 

@@ -16,14 +16,8 @@ interface ICate {
     [key: string]: any
 }
 
-interface IConetnt extends ICate {
-    key: string
-    showTitle: string
-    placeholder?: string
-}
-
 const defaultCates: Array<ICate> = [
-    { title: '单行文本', id: 1, icon: "icon-text" },
+    { title: '单行文本', id: 1, icon: "icon-text", },
     { title: '多行文本', id: 2, icon: "icon-font-size" },
     { title: '数字', id: 3, icon: "icon-number" },
     { title: '日期时间', id: 4, icon: "icon-calendar" },
@@ -33,34 +27,56 @@ const defaultCates: Array<ICate> = [
     { title: '分割线', id: 8, icon: "icon-line" },
 ]
 
-export class QuestionBase<T> {
-    value: T | undefined;
+
+
+export const HASOPTION = [5, 6, 7]
+
+export class Field {
     key: string;
     label: string;
     required: boolean;
+    showLabel: boolean;
     order: number;
-    controlType: string;
-    type: string;
-    options: { key: string, value: string }[];
+    controlType: number;
+    placeholder: string
+    defaultValue?: string
+    help: string
+    options: { title: string, value: string | number }[];
 
     constructor(options: {
-        value?: T;
-        key?: string;
+        controlType: number;
         label?: string;
         required?: boolean;
+        showLabel?: boolean;
         order?: number;
-        controlType?: string;
-        type?: string;
-        options?: { key: string, value: string }[];
-    } = {}) {
-        this.value = options.value;
-        this.key = options.key || '';
-        this.label = options.label || '';
+        placeholder?: string;
+        help?: string;
+        options?: { title: string, value: string | number }[];
+    }) {
+        this.key = Date.now().toString(16)
+        this.label = options.label ?? '';
         this.required = !!options.required;
+        this.showLabel = options.showLabel ?? true;
         this.order = options.order === undefined ? 1 : options.order;
-        this.controlType = options.controlType || '';
-        this.type = options.type || '';
-        this.options = options.options || [];
+        this.controlType = options.controlType;
+        this.help = options.help ?? '';
+        this.placeholder = options.placeholder ?? ''
+        this.options = this.initOptions(options.controlType)
+    }
+
+    private initOptions(controlType: number): Field['options'] {
+        if (HASOPTION.includes(controlType)) {
+            return [
+                { title: "选项1", value: 1 },
+                { title: "选项2", value: 2 },
+                { title: "选项3", value: 3 },
+            ]
+        }
+        return []
+    }
+
+    private genUniqueId() {
+        return Math.random().toString(32).substring(2, 10)
     }
 }
 
@@ -72,12 +88,10 @@ export class QuestionBase<T> {
 export class IndexComponent implements OnInit, AfterViewInit, OnChanges {
 
     @ViewChild('resultWrapper') public resultWrapper: ElementRef<Element> | undefined
-    public rowHeight = innerHeight - 130
     public timer: ReturnType<typeof setInterval> | undefined
-    public top: number = 0
     public editedKey: string = ''
     public categories: Array<ICate> = defaultCates
-    public content: Array<IConetnt> = []
+    public content: Array<Field> = []
     public getCurrentField() {
         console.log(this.content.find(f => f.key === this.editedKey));
         return this.content.find(f => f.key === this.editedKey)
@@ -103,31 +117,16 @@ export class IndexComponent implements OnInit, AfterViewInit, OnChanges {
 
     }
 
-    drop(event: CdkDragDrop<any[]>) {
+    drop(event: CdkDragDrop<Array<ICate>> | CdkDragDrop<Array<Field>>) {
         if (event.previousContainer !== event.container) {
-            const randomKey = Math.random().toString(32).substring(2, 10)
-            const initContent = {
-                key: randomKey,
-                placeholder: '',
-                showTitle: true
-            }
-            const nr = event.previousContainer.data.map((i, idx) => {
-                if (idx === event.previousIndex) {
-                    return Object.assign(i, initContent)
-                }
-                Object.keys(initContent).forEach(key => {
-                    Reflect.deleteProperty(i, key)
-                })
-                return i
-            })
-            copyArrayItem(nr,
-                event.container.data,
-                event.previousIndex,
-                event.currentIndex)
-            this.handleChangeActive(randomKey)
-
+            const curretnt = (event.previousContainer.data as ICate[])[event.previousIndex]
+            const newField = new Field({ controlType: curretnt.id, label: curretnt.title, })
+            this.content.splice(event.currentIndex, 0, newField)
+            this.handleChangeActive(newField.key)
         } else {
-            moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+            console.log(event.container.data);
+
+            moveItemInArray(event.container.data as Array<Field>, event.previousIndex, event.currentIndex);
         }
         if (event.previousContainer.data) {
             this.categories = this.categories.filter(f => !f.temp)
@@ -143,42 +142,51 @@ export class IndexComponent implements OnInit, AfterViewInit, OnChanges {
         this.categories = this.categories.filter(f => !f.temp)
     }
 
+    handleWatchFormChange() {
+        this.propForm.valueChanges.subscribe(({ title, placeholder }) => {
+            this.content = this.content.map(i => {
+                if (i.key === this.editedKey) {
+                    i.label = title
+                    i.placeholder = placeholder
+                }
+                return i
+            })
+        })
+    }
+
     handleChangeActive(key: string) {
         this.editedKey = key
         const currentItem = this.content.find(f => f.key === key)
         if (currentItem) {
             this.propForm.setValue({
-                title: currentItem.title,
+                title: currentItem.label,
                 placeholder: currentItem.placeholder
             })
         }
     }
 
+    handleCopy(e: MouseEvent, item: Field, index: number) {
+        e.preventDefault()
+        this.content.splice(index, 0, new Field(item))
+    }
+
+    handleDelete(e: MouseEvent, item: Field, index: number) {
+        e.preventDefault()
+        this.content = this.content.filter(f => f.key !== item.key)
+        const next = this.content[index]
+        if (next) {
+            this.handleChangeActive(next.key)
+        } else {
+            this.propForm.reset()
+            this.editedKey = ''
+        }
+    }
+
     handleSave() {
         console.log(this.content);
-        // this.content.find(f=>f.title === this.editedKey)
     }
 
 
 
-    handleWatchFormChange() {
-        this.propForm.valueChanges.subscribe(({ title, placeholder }) => {
-            this.content = this.content.map(i => i.key === this.editedKey ? { ...i, title, placeholder } : i)
-        })
-    }
 
-
-    testScrollTop() {
-        this.timer = setInterval(() => {
-            if (this.resultWrapper?.nativeElement) {
-                this.top += 100
-                const domTop = this.resultWrapper.nativeElement.scrollTop
-                if (this.top - 100 > domTop && domTop !== 0) {
-                    clearInterval(this.timer!)
-                    return
-                }
-                this.rd2.setProperty(this.resultWrapper.nativeElement, 'scrollTop', this.top)
-            }
-        }, 60)
-    }
 }

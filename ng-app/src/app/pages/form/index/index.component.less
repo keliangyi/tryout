@@ -7,30 +7,75 @@
 }
 
 .resultItem() {
-    margin: 12px 0;
+    display: flex;
     padding: 12px;
-    border: var(--border);
-    cursor: pointer;
-    background-color: #fff;
-    user-select: none;
+
+    .widget {
+        flex: 1;
+        margin-right: 12px;
+        padding: 12px;
+        border-radius: 6px;
+        box-shadow: 0 1px 6px 0 #e4e8eb;
+        background-color: #fff;
+        user-select: none;
+
+        * {
+            cursor: pointer;
+        }
+    }
+
+    &.active .action-bar {
+        visibility: visible;
+    }
+    .action-bar {
+        visibility: hidden;
+        flex-shrink: 0;
+
+        a {
+            display: block;
+            flex: 1;
+            margin-bottom: 12px;
+            padding: 6px 12px;
+            border-radius: 4px;
+            text-align: center;
+            box-shadow: 0 1px 6px 0 #e4e8eb;
+            background-color: #fff;
+            cursor: pointer;
+            &:not(:last-child) {
+                border-right: var(--border);
+            }
+        }
+    }
 
     .title {
         margin-bottom: 8px;
     }
-    &:hover {
+    &:hover .widget {
         background-color: var(--bg-color);
     }
-    &.active {
+    &.active .widget {
         background-color: var(--primary-fade-50);
     }
 
     .title {
         font-weight: bold;
     }
+
+    .line {
+        margin: 24px 0;
+        border-top: 1px solid #999;
+    }
+    // .form-control {
+    //     width: 61.8%;
+    // }
+    .form-control-item {
+        width: 61.8%;
+    }
 }
 
 .ng-icon {
     color: var(--primary-color);
+    font-size: 18px;
 }
 
 .form {
@@ -42,7 +87,7 @@
 
     .components {
         height: inherit;
-        overflow: hidden;
+        overflow-x: hidden;
     }
 
     .result {
@@ -56,6 +101,7 @@
         }
 
         .result-item {
+            position: relative;
             .resultItem();
         }
         .cdk-drag-placeholder {
@@ -83,11 +129,12 @@
         margin-top: 12px;
         .cate-item {
             display: block;
-            padding: 6px 12px;
+            padding: 4px 12px;
             border-radius: 4px;
             border: 1px solid #e8e8e8;
             background-color: #fff;
             cursor: pointer;
+            user-select: none;
         }
     }
 }
@@ -104,4 +151,7 @@
 }
 ::ng-deep .cdk-drag-preview.result-item {
     .resultItem();
+    .action-bar {
+        display: none;
+    }
 }

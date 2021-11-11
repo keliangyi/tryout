@@ -9,6 +9,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
+import { MatSelectModule } from '@angular/material/select'
+import { MatRadioModule } from '@angular/material/radio'
+import { MatCheckboxModule } from '@angular/material/checkbox'
+
 import { AppPipeModule } from './pipes/appPipe.module';
 import { LayoutComponent } from './components/layout/layout.component';
 import { MenuComponent } from './components/menu/menu.component';
@@ -57,6 +61,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
         MatCardModule,
         MatGridListModule,
         MatSnackBarModule,
+        MatSelectModule,
+        MatRadioModule,
+        MatCheckboxModule
     ],
     exports: [
         CommonModule,
@@ -69,6 +76,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
         MatCardModule,
         MatGridListModule,
         MatSnackBarModule,
+        MatSelectModule,
+        MatRadioModule,
+        MatCheckboxModule,
 
 
 

@@ -5,11 +5,16 @@
                 基础字段
             </ng-card-title>
             <div>
-                <ul class="cates" cdkDropList #cateList="cdkDropList" [cdkDropListData]="categories"
-                    cdkDropListSortingDisabled [cdkDropListConnectedTo]="[contentList]" (cdkDropListEntered)="entered()"
-                    (cdkDropListDropped)="drop($event)" (cdkDropListExited)="exited($event)">
+                <ul class="cates" cdkDropList cdkDropListSortingDisabled #cateList="cdkDropList"
+                    [cdkDropListData]="categories" (cdkDropListDropped)="drop($event)"
+                    [cdkDropListConnectedTo]="[contentList]" (cdkDropListEntered)="entered()"
+                    (cdkDropListExited)="exited($event)">
                     <li class="cate-item" *ngFor="let item of categories" cdkDrag [cdkDragData]="item">
-                        <div class="cate-placeholder" *cdkDragPlaceholder>{{item.title}}</div>
+                        <div class="cate-placeholder cate-item" *cdkDragPlaceholder>
+                            <a>
+                                <ng-icon [type]="item.icon"></ng-icon> {{item.title}}
+                            </a>
+                        </div>
                         <a>
                             <ng-icon [type]="item.icon"></ng-icon> {{item.title}}
                         </a>
@@ -31,21 +36,65 @@
                 <div class="content">
                     <div>
                         <div class="result-item" [ngClass]="{active: editedKey === item.key}"
-                            (click)="handleChangeActive(item.key)" *ngFor="let item of content" cdkDrag>
-                            <p class="title">{{item.title}}</p>
-                            <div [ngSwitch]="item.id">
-                                <div *ngSwitchCase="1">
-                                    <input matInput readonly [placeholder]="item.placeholder!" />
+                            (click)="handleChangeActive(item.key)" *ngFor="let item of content;let idx = index" cdkDrag>
+                            <div class="widget">
+                                <p class="title">{{item.label}}</p>
+                                <div [ngSwitch]="item.controlType" class="form-control">
+                                    <div *ngSwitchCase="1">
+                                        <input class="form-control-item" matInput readonly
+                                            [placeholder]="item.placeholder" />
+                                    </div>
+                                    <div *ngSwitchCase="2">
+                                        <textarea matInput rows="5" readonly class="form-control-item"
+                                            [placeholder]="item.placeholder"></textarea>
+                                    </div>
+                                    <div *ngSwitchCase="3">
+                                        <input matInput readonly class="form-control-item" type="number"
+                                            [placeholder]="item.placeholder" />
+                                    </div>
+                                    <div *ngSwitchCase="4">
+                                        <input matInput readonly class="form-control-item" type="number"
+                                            [placeholder]="item.placeholder" />
+                                    </div>
+                                    <div *ngSwitchCase="5">
+                                        <mat-radio-group disabled class="form-control-item">
+                                            <mat-radio-button color="primary" *ngFor="let opt of item.options"
+                                                [value]="opt.value">
+                                                {{opt.title}}
+                                            </mat-radio-button>
+                                        </mat-radio-group>
+                                    </div>
+                                    <div *ngSwitchCase="6">
+                                        <div class="form-control-item">
+                                            <mat-checkbox color="primary" disabled *ngFor="let opt of item.options"
+                                                [value]="opt.value.toString()">
+                                                {{opt.title}}
+                                            </mat-checkbox>
+                                        </div>
+                                    </div>
+                                    <div *ngSwitchCase="7">
+                                        <mat-select [placeholder]="item.placeholder" class="form-control-item" disabled>
+                                            <mat-option *ngFor="let opt of item.options" [value]="opt.value">
+                                                {{opt.title}}
+                                            </mat-option>
+                                        </mat-select>
+                                    </div>
+                                    <div *ngSwitchCase="8">
+                                        <div class="line"></div>
+                                    </div>
+                                    <div *ngSwitchDefault>
+                                        default
+                                    </div>
                                 </div>
-                                <div *ngSwitchCase="2">
-                                    <textarea matInput rows="5" readonly [placeholder]="item.placeholder!"></textarea>
-                                </div>
-                                <div *ngSwitchCase="3">
-                                    <input matInput readonly type="number" [placeholder]="item.placeholder!" />
-                                </div>
-                                <div *ngSwitchDefault>output2</div>
                             </div>
-                            <!-- <h1 *cdkDragPlaceholder> dfagfa </h1> -->
+                            <div class="action-bar">
+                                <a title="复制" (click)="handleCopy($event,item,idx)">
+                                    <ng-icon type="icon-file-copy"></ng-icon>
+                                </a>
+                                <a title="删除" (click)="handleDelete($event,item,idx)">
+                                    <ng-icon type="icon-delete"></ng-icon>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>

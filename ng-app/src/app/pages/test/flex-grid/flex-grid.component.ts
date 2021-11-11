@@ -14,4 +14,18 @@ export class FlexGridComponent implements OnInit {
     ngOnInit() {
     }
 
+    // testScrollTop() {
+    //     this.timer = setInterval(() => {
+    //         if (this.resultWrapper?.nativeElement) {
+    //             this.top += 100
+    //             const domTop = this.resultWrapper.nativeElement.scrollTop
+    //             if (this.top - 100 > domTop && domTop !== 0) {
+    //                 clearInterval(this.timer!)
+    //                 return
+    //             }
+    //             this.rd2.setProperty(this.resultWrapper.nativeElement, 'scrollTop', this.top)
+    //         }
+    //     }, 60)
+    // }
+
 }
