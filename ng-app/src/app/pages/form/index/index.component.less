@@ -8,6 +8,7 @@
 
 .resultItem() {
     display: flex;
+    align-items: center;
     padding: 12px;
 
     .widget {
@@ -47,9 +48,12 @@
         }
     }
 
-    .title {
-        margin-bottom: 8px;
+    .help {
+        color: #00000073;
+        font-size: 14px;
+        line-height: 1.5715;
     }
+
     &:hover .widget {
         background-color: var(--bg-color);
     }
@@ -65,9 +69,9 @@
         margin: 24px 0;
         border-top: 1px solid #999;
     }
-    // .form-control {
-    //     width: 61.8%;
-    // }
+    .form-control {
+        margin: 8px 0;
+    }
     .form-control-item {
         width: 61.8%;
     }

@@ -1,129 +1,40 @@
 import { CdkDragDrop, CdkDragStart, moveItemInArray, copyArrayItem, transferArrayItem, CdkDragExit } from '@angular/cdk/drag-drop';
 import { AfterViewInit, Component, ElementRef, OnChanges, OnInit, Renderer2, ViewChild, ViewChildren } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms'
+import { filter, tap } from 'rxjs/operators';
+import { deepClone } from 'src/utils';
+import { defaultCates, Field, ICate } from '../field';
 
-type A = 'a' | 'b' | 'f'
 
-type B = 'd' | 'f'
-type Diff<T, U> = T extends U ? never : T;
-
-type DiffAb = Diff<A, B> // ab
-
-interface ICate {
-    title: string
-    id: number,
-    icon?: string
-    [key: string]: any
-}
-
-const defaultCates: Array<ICate> = [
-    { title: '单行文本', id: 1, icon: "icon-text", },
-    { title: '多行文本', id: 2, icon: "icon-font-size" },
-    { title: '数字', id: 3, icon: "icon-number" },
-    { title: '日期时间', id: 4, icon: "icon-calendar" },
-    { title: '单选', id: 5, icon: "icon-check-circle" },
-    { title: '多选', id: 6, icon: "icon-check-square" },
-    { title: '下拉框', id: 7, icon: "icon-down-square" },
-    { title: '分割线', id: 8, icon: "icon-line" },
-]
-
-export const HASOPTION = [5, 6, 7]
-
-export class Field {
-    key: string;
-    label: string;
-    required: boolean;
-    showLabel: boolean;
-    order: number;
-    controlType: number;
-    placeholder: string
-    defaultValue?: string
-    help: string
-    options: { title: string, value: string | number }[];
-
-    constructor(options: {
-        controlType: number;
-        label?: string;
-        required?: boolean;
-        showLabel?: boolean;
-        order?: number;
-        placeholder?: string;
-        help?: string;
-        options?: { title: string, value: string | number }[];
-    }) {
-        this.key = Date.now().toString(16)
-        this.label = options.label ?? '';
-        this.required = !!options.required;
-        this.showLabel = options.showLabel ?? true;
-        this.order = options.order === undefined ? 1 : options.order;
-        this.controlType = options.controlType;
-        this.help = options.help ?? '';
-        this.placeholder = options.placeholder ?? ''
-        this.options = this.initOptions(options.controlType)
-    }
-
-    private initOptions(controlType: number): Field['options'] {
-        if (HASOPTION.includes(controlType)) {
-            return [
-                { title: "选项一", value: 1 },
-                { title: "选项二", value: 2 },
-                { title: "选项三", value: 3 },
-            ]
-        }
-        return []
-    }
-
-    private genUniqueId() {
-        return Math.random().toString(32).substring(2, 10)
-    }
-}
 
 @Component({
     selector: 'app-index',
     templateUrl: './index.component.html',
     styleUrls: ['./index.component.less']
 })
-export class IndexComponent implements OnInit, AfterViewInit, OnChanges {
+export class IndexComponent implements OnInit {
 
-    @ViewChild('resultWrapper') public resultWrapper: ElementRef<Element> | undefined
-    public timer: ReturnType<typeof setInterval> | undefined
-    public editedKey: string = ''
     public categories: Array<ICate> = defaultCates
     public content: Array<Field> = []
-    public getCurrentField() {
-        console.log(this.content.find(f => f.key === this.editedKey));
-        return this.content.find(f => f.key === this.editedKey)
-    }
-
+    public active?: Field
     public propForm = new FormGroup({
-        title: new FormControl(''),
-        placeholder: new FormControl(''),
+        label: new FormControl(''),
+        showLabel: new FormControl(true),
     })
 
     constructor(private rd2: Renderer2) { }
 
     ngOnInit(): void {
         this.handleWatchFormChange()
-
-    }
-    ngAfterViewInit() {
-        // this.testScrollTop()
-    }
-
-    ngOnChanges(e: any) {
-        console.log('ngOnChanges', e);
-
     }
 
     drop(event: CdkDragDrop<Array<ICate>> | CdkDragDrop<Array<Field>>) {
         if (event.previousContainer !== event.container) {
             const curretnt = (event.previousContainer.data as ICate[])[event.previousIndex]
-            const newField = new Field({ controlType: curretnt.id, label: curretnt.title, })
+            const newField = new Field({ controlType: curretnt.id, label: curretnt.title, settings: curretnt.settings })
             this.content.splice(event.currentIndex, 0, newField)
             this.handleChangeActive(newField.key)
         } else {
-            console.log(event.container.data);
-
             moveItemInArray(event.container.data as Array<Field>, event.previousIndex, event.currentIndex);
         }
         if (event.previousContainer.data) {
@@ -140,32 +51,52 @@ export class IndexComponent implements OnInit, AfterViewInit, OnChanges {
         this.categories = this.categories.filter(f => !f.temp)
     }
 
+    handleChangeActive(key: string) {
+        const currentItem = this.content.find(f => f.key === key)
+        if (this.active) {
+            this.active.settings.forEach(setting => {
+                //https://github.com/angular/angular/issues/20439
+                this.propForm.removeControl(setting.name, { emitEvent: false })
+            })
+        }
+        this.active = currentItem
+        if (currentItem) {
+            const vals = Object.create({})
+            currentItem.settings.forEach(setting => {
+                this.propForm.addControl(setting.name, new FormControl(), { emitEvent: false })
+                vals[setting.name] = currentItem.attr[setting.name] ?? setting.defaultValue
+            })
+            this.propForm.setValue({
+                label: currentItem.label,
+                showLabel: currentItem.showLabel,
+                ...vals
+            })
+        }
+    }
+
+
     handleWatchFormChange() {
-        this.propForm.valueChanges.subscribe(({ title, placeholder }) => {
+        this.propForm.valueChanges.pipe(
+            // filter(_ => this.pauseForm),
+        ).subscribe((vals) => {
+            const { label, showLabel, ...rest } = vals
             this.content = this.content.map(i => {
-                if (i.key === this.editedKey) {
-                    i.label = title
-                    i.placeholder = placeholder
+                if (i.key === this.active!.key) {
+                    i.label = label
+                    i.showLabel = showLabel
+                    Object.entries(rest).forEach(([k, v]) => {
+                        i['attr'][k] = v
+                    })
                 }
                 return i
             })
         })
     }
 
-    handleChangeActive(key: string) {
-        this.editedKey = key
-        const currentItem = this.content.find(f => f.key === key)
-        if (currentItem) {
-            this.propForm.setValue({
-                title: currentItem.label,
-                placeholder: currentItem.placeholder
-            })
-        }
-    }
 
     handleCopy(e: MouseEvent, item: Field, index: number) {
         e.preventDefault()
-        this.content.splice(index, 0, new Field(item))
+        this.content.splice(index, 0, new Field(deepClone(item)))
     }
 
     handleDelete(e: MouseEvent, item: Field, index: number) {
@@ -176,7 +107,7 @@ export class IndexComponent implements OnInit, AfterViewInit, OnChanges {
             this.handleChangeActive(next.key)
         } else {
             this.propForm.reset()
-            this.editedKey = ''
+            this.active = void 0
         }
     }
 

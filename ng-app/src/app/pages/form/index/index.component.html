@@ -35,26 +35,26 @@
                 (cdkDropListDropped)="drop($event)">
                 <div class="content">
                     <div>
-                        <div class="result-item" [ngClass]="{active: editedKey === item.key}"
+                        <div class="result-item" [ngClass]="{active: active?.key === item.key}"
                             (click)="handleChangeActive(item.key)" *ngFor="let item of content;let idx = index" cdkDrag>
                             <div class="widget">
-                                <p class="title">{{item.label}}</p>
+                                <p class="title" *ngIf="item.showLabel">{{item.label}}</p>
                                 <div [ngSwitch]="item.controlType" class="form-control">
                                     <div *ngSwitchCase="1">
                                         <input class="form-control-item" matInput readonly
-                                            [placeholder]="item.placeholder" />
+                                            [placeholder]="item.attr.placeholder" />
                                     </div>
                                     <div *ngSwitchCase="2">
                                         <textarea matInput rows="5" readonly class="form-control-item"
-                                            [placeholder]="item.placeholder"></textarea>
+                                            [placeholder]="item.attr.placeholder"></textarea>
                                     </div>
                                     <div *ngSwitchCase="3">
                                         <input matInput readonly class="form-control-item" type="number"
-                                            [placeholder]="item.placeholder" />
+                                            [placeholder]="item.attr.placeholder" />
                                     </div>
                                     <div *ngSwitchCase="4">
                                         <input matInput readonly class="form-control-item" type="number"
-                                            [placeholder]="item.placeholder" />
+                                            [placeholder]="item.attr.placeholder" />
                                     </div>
                                     <div *ngSwitchCase="5">
                                         <mat-radio-group disabled class="form-control-item">
@@ -73,7 +73,7 @@
                                         </div>
                                     </div>
                                     <div *ngSwitchCase="7">
-                                        <mat-select [placeholder]="item.placeholder" class="form-control-item" disabled>
+                                        <mat-select class="form-control-item" disabled>
                                             <mat-option *ngFor="let opt of item.options" [value]="opt.value">
                                                 {{opt.title}}
                                             </mat-option>
@@ -86,6 +86,7 @@
                                         default
                                     </div>
                                 </div>
+                                <p class="help" *ngIf="item.attr.help">{{ item.attr.help }}</p>
                             </div>
                             <div class="action-bar">
                                 <a title="复制" (click)="handleCopy($event,item,idx)">
@@ -104,20 +105,29 @@
             <ng-card-title>
                 属性
             </ng-card-title>
-            <div *ngIf="editedKey">
+            <div *ngIf="active">
                 <form class="property-form" [formGroup]="propForm">
                     <div class="form-item">
-                        <p class="form-item-label">标题</p>
+                        <p class="form-item-label">
+                            <span>
+                                标题
+                            </span>
+                            <mat-checkbox color="primary" formControlName="showLabel">
+                                显示标题
+                            </mat-checkbox>
+                        </p>
                         <div>
-                            <input matInput formControlName="title" placeholder="请输入标题" />
+                            <input matInput formControlName="label" placeholder="请输入标题" />
                         </div>
                     </div>
-                    <div class="form-item">
-                        <p class="form-item-label">提示文字</p>
+
+                    <div class="form-item" *ngFor="let setting of active.settings">
+                        <p class="form-item-label">{{ setting.title }}</p>
                         <div>
-                            <input matInput formControlName="placeholder" placeholder="请输入提示文字" />
+                            <input matInput [placeholder]="'请输入' + setting.title" [formControlName]="setting.name" />
                         </div>
                     </div>
+
                 </form>
             </div>
 
