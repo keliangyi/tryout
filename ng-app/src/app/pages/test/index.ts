@@ -1,3 +1,5 @@
 export * from './index/index.component'
 export * from './inject/inject.component'
 export * from './flex-grid/flex-grid.component'
+export * from './ng-model/ng-model.component'
+export * from './minmax/minmax.component'
