@@ -24,10 +24,10 @@ export class AppComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.store.fetchAccount()
-        this.auth.authLoading$.subscribe(r => {
-            this.loading = r
-        })
+        // this.store.fetchAccount()
+        // this.auth.authLoading$.subscribe(r => {
+        //     this.loading = r
+        // })
     }
 
     tirggerHeaderFn() {
