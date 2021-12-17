@@ -44,14 +44,14 @@ export class StoreService {
     }
 
     fetchAccount() {
-        this.http.get<Account>('/b/617607c2aa02be1d445e555c/latest').subscribe(res => {
+        this.http.get<Account>('/users').subscribe(res => {
             this.account = res
             this.account$.next(res)
         })
     }
 
     fetchUserByid(id: string) {
-        return this.http.get<Account[]>('/b/6176160faa02be1d445e5910/latest', {
+        return this.http.get<Account[]>('/users', {
             params: {
                 id
             }
@@ -59,7 +59,7 @@ export class StoreService {
     }
 
     fetchJsonServer() {
-        this.http.get<{ account: UserInfo }>('/b').subscribe((r) => {
+        this.http.get<{ account: UserInfo }>('/users').subscribe((r) => {
             console.log('AccountComponent', r);
             this.userInfo = r.account
         })

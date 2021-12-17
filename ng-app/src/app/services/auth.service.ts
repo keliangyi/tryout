@@ -36,9 +36,7 @@ export class AuthService {
     }
 
     login() {
-        this.http.get<Account>('/b/617607c2aa02be1d445e555c/latest').subscribe(r => {
-            this.auth$.next(r)
-        })
+
     }
 
     logout(): void {

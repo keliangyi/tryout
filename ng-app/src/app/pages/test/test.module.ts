@@ -3,6 +3,8 @@ import { NgModule } from '@angular/core';
 import { TestRoutingModule } from './test-routing.module';
 import { CoreModule } from 'src/app/core';
 import { TestIndexComponent, InjectComponent, FlexGridComponent, NgModelComponent, MinmaxComponent, RxjsComponent } from './index';
+import { SubscribeOneComponent } from './subscribe-one/subscribe-one.component';
+import { SubscribeTwoComponent } from './subscribe-two/subscribe-two.component';
 
 
 @NgModule({
@@ -12,7 +14,9 @@ import { TestIndexComponent, InjectComponent, FlexGridComponent, NgModelComponen
         FlexGridComponent,
         NgModelComponent,
         MinmaxComponent,
-        RxjsComponent
+        RxjsComponent,
+        SubscribeOneComponent,
+        SubscribeTwoComponent
     ],
     imports: [
         CoreModule,
