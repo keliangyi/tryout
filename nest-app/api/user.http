@@ -1,0 +1,7 @@
+Post {{nest}}/user/create
+Content-Type: application/json;charset=UTF-8
+
+{
+    "name":"tom",
+    "age":15
+}   
