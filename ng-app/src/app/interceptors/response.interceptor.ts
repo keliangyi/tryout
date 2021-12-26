@@ -7,8 +7,8 @@ import {
     HttpResponse,
     HttpErrorResponse
 } from '@angular/common/http';
-import { Observable, of, } from 'rxjs';
-import { tap, timeout, catchError, map, filter, switchMap } from 'rxjs/operators'
+import { EMPTY, Observable, of, } from 'rxjs';
+import { tap, timeout, catchError, map, filter, switchMap, finalize } from 'rxjs/operators'
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 const TIMEOUT = 10000
@@ -47,36 +47,42 @@ export class ResponseInterceptor implements HttpInterceptor {
 
                 return res instanceof HttpResponse
             }),
-            map((rt) => {
-                //@ts-ignore
-                return rt.clone({
-                    //@ts-ignore
-                    body: rt.body.record
-                })
-            }),
-            tap((ev) => {
-                let e = ev as HttpResponse<any>
-                // e = e.clone({
-                //     body: e.clone({
-                //         body: e.body.record
-                //     })
-                // })
-                // @ts-ignore
-                // console.log(ev);
+
+            // map((rt) => {
+            //     //@ts-ignore
+            //     return rt.clone({
+            //         //@ts-ignore
+            //         body: rt.body.record
+            //     })
+            // }),
+            // tap((ev) => {
+            //     let e = ev as HttpResponse<any>
+            //     // e = e.clone({
+            //     //     body: e.clone({
+            //     //         body: e.body.record
+            //     //     })
+            //     // })
+            //     // @ts-ignore
+            //     // console.log(ev);
+
+            // }),
+            finalize(() => {
+                console.log('finalize');
 
             }),
             catchError((err: any) => {
-                console.log(err);
+
                 let msg: string = ''
-                if (err instanceof HttpErrorResponse) {
-                    msg = err.statusText
-                }
-                this.toast.open(msg, '', {
+                // if (err instanceof HttpErrorResponse) {
+                //     msg = err.statusText
+                // }
+                this.toast.open(msg || '出错了', '', {
                     verticalPosition: 'top',
                     duration: 2000
                 })
-                return of(err)
-            })
+                return EMPTY
+            }),
+
         );
     }
 }
