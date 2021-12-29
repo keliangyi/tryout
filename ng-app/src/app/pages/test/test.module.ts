@@ -9,9 +9,9 @@ import {
     NgModelComponent,
     MinmaxComponent,
     RxjsComponent,
-    ImmerComponent,
     ObserverComponent,
-    CatchErrorComponent
+    CatchErrorComponent,
+    FlatOperatorComponent
 } from './index';
 import { SubscribeOneComponent } from './subscribe-one/subscribe-one.component';
 import { SubscribeTwoComponent } from './subscribe-two/subscribe-two.component';
@@ -29,7 +29,7 @@ import { SubscribeTwoComponent } from './subscribe-two/subscribe-two.component';
         SubscribeTwoComponent,
         ObserverComponent,
         CatchErrorComponent,
-        ImmerComponent
+        FlatOperatorComponent
     ],
     imports: [
         CoreModule,
