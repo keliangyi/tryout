@@ -1,0 +1,34 @@
+<ng-card style="margin-top: 24px;">
+    <p>
+        immer works!
+    </p>
+    <ul>
+        <li *ngFor="let item of baseState">
+            {{ item.title }}
+        </li>
+    </ul>
+    <hr>
+
+    <button (click)="add()">add</button>
+    <button (click)="copy()">copy</button>
+    <button (click)="changeName()">change name</button>
+    <button (click)="addCopy()">add-to-copy</button>
+    <button (click)="changeObj()">changeObj</button>
+    <button (click)="tick()">tick</button>
+
+    <hr>
+
+    <div>
+        {{ clock1 | json }}
+    </div>
+    <div>
+        {{ clock2 | json }}
+    </div>
+
+    <hr>
+    <ul>
+        <li *ngFor="let item of newState">
+            {{ item.title }}
+        </li>
+    </ul>
+</ng-card>

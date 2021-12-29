@@ -127,6 +127,21 @@
                             <input matInput [placeholder]="'请输入' + setting.title" [formControlName]="setting.name" />
                         </div>
                     </div>
+                    <div class="form-item" *ngIf="active.options.length">
+                        <p class="form-item-label">选项</p>
+                        <div formArrayName="options">
+                            <div *ngFor="let opt of optionAlias.controls;let i = index" class="option-setting">
+                                <mat-checkbox color="primary"></mat-checkbox>
+                                <input matInput [formControlName]="i" placeholder="请输入选项" />
+                                <span class="handler">
+                                    <ng-icon type="icon-drag"></ng-icon>
+                                    <ng-icon type="icon-delete"></ng-icon>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+
+
 
                 </form>
             </div>

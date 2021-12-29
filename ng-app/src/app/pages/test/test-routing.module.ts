@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { TestIndexComponent, InjectComponent, FlexGridComponent, NgModelComponent, RxjsComponent } from './index';
+import { TestIndexComponent, InjectComponent, FlexGridComponent, NgModelComponent, RxjsComponent, ImmerComponent } from './index';
 import { SubscribeOneComponent } from './subscribe-one/subscribe-one.component';
 import { SubscribeTwoComponent } from './subscribe-two/subscribe-two.component';
 
@@ -12,6 +12,7 @@ const routes: Routes = [
     { path: 'rxjs', pathMatch: 'full', component: RxjsComponent },
     { path: 'subs-1', pathMatch: 'full', component: SubscribeOneComponent },
     { path: 'subs-2', pathMatch: 'full', component: SubscribeTwoComponent },
+    { path: 'immer', pathMatch: 'full', component: ImmerComponent },
 ];
 
 @NgModule({

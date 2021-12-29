@@ -83,7 +83,7 @@ export class Field {
     placeholder: string
     defaultValue?: string
     help: string
-    options: { title: string, value: string | number }[];
+    options: { title: string, value: string | number, checked?: boolean }[];
 
     settings: ICate['settings']
     attr: any = {}

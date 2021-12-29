@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit, } from '@angular/core';
-const url = '//at.alicdn.com/t/font_2878081_e4om3xuvg.js'
+const url = '//at.alicdn.com/t/font_2878081_tkk3a8wgph.js'
 
 const scripts = new Set<string>()
 

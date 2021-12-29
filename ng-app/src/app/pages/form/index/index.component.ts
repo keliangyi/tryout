@@ -1,6 +1,6 @@
 import { CdkDragDrop, CdkDragStart, moveItemInArray, copyArrayItem, transferArrayItem, CdkDragExit } from '@angular/cdk/drag-drop';
 import { AfterViewInit, Component, ElementRef, OnChanges, OnInit, Renderer2, ViewChild, ViewChildren } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms'
+import { FormGroup, FormControl, Validators, FormBuilder, FormArray } from '@angular/forms'
 import { filter, tap } from 'rxjs/operators';
 import { deepClone } from 'src/utils';
 import { defaultCates, Field, ICate } from '../field';
@@ -17,12 +17,20 @@ export class IndexComponent implements OnInit {
     public categories: Array<ICate> = defaultCates
     public content: Array<Field> = []
     public active?: Field
-    public propForm = new FormGroup({
-        label: new FormControl(''),
-        showLabel: new FormControl(true),
+
+
+    public propForm = this.fb.group({
+        label: [''],
+        showLabel: [true],
+        options: this.fb.array([]),
     })
 
-    constructor(private rd2: Renderer2) { }
+    public get optionAlias() {
+        return this.propForm.get('options') as FormArray
+    }
+
+
+    constructor(private rd2: Renderer2, private fb: FormBuilder) { }
 
     ngOnInit(): void {
         this.handleWatchFormChange()
@@ -31,9 +39,8 @@ export class IndexComponent implements OnInit {
     drop(event: CdkDragDrop<Array<ICate>> | CdkDragDrop<Array<Field>>) {
         if (event.previousContainer !== event.container) {
             const curretnt = (event.previousContainer.data as ICate[])[event.previousIndex]
-            const newField = new Field({ controlType: curretnt.id, label: curretnt.title, settings: curretnt.settings })
-            this.content.splice(event.currentIndex, 0, newField)
-            this.handleChangeActive(newField.key)
+            const newKey = this.handleCreateField(curretnt, event.currentIndex)
+            this.handleChangeActive(newKey)
         } else {
             moveItemInArray(event.container.data as Array<Field>, event.previousIndex, event.currentIndex);
         }
@@ -51,25 +58,35 @@ export class IndexComponent implements OnInit {
         this.categories = this.categories.filter(f => !f.temp)
     }
 
+    handleCreateField(cate: ICate, currentIndex: number): string {
+        const newField = new Field({ controlType: cate.id, label: cate.title, settings: cate.settings, })
+        this.content.splice(currentIndex, 0, newField)
+        return newField.key
+    }
+
     handleChangeActive(key: string) {
         const currentItem = this.content.find(f => f.key === key)
         if (this.active) {
+            this.optionAlias.clear({ emitEvent: false })
             this.active.settings.forEach(setting => {
                 //https://github.com/angular/angular/issues/20439
                 this.propForm.removeControl(setting.name, { emitEvent: false })
             })
         }
+
         this.active = currentItem
+
         if (currentItem) {
-            const vals = Object.create({})
             currentItem.settings.forEach(setting => {
-                this.propForm.addControl(setting.name, new FormControl(), { emitEvent: false })
-                vals[setting.name] = currentItem.attr[setting.name] ?? setting.defaultValue
+                this.propForm.addControl(setting.name, new FormControl(currentItem.attr[setting.name] ?? setting.defaultValue), { emitEvent: false })
             })
-            this.propForm.setValue({
+            currentItem.options.forEach(opt => {
+                this.optionAlias.push(new FormControl(opt.title), { emitEvent: false })
+            })
+            this.propForm.patchValue({
                 label: currentItem.label,
                 showLabel: currentItem.showLabel,
-                ...vals
+                // ...vals
             })
         }
     }
@@ -80,11 +97,16 @@ export class IndexComponent implements OnInit {
             // filter(_ => this.pauseForm),
         ).subscribe((vals) => {
             const { label, showLabel, ...rest } = vals
+            console.log('vals', vals,);
+
             this.content = this.content.map(i => {
                 if (i.key === this.active!.key) {
                     i.label = label
                     i.showLabel = showLabel
                     Object.entries(rest).forEach(([k, v]) => {
+                        if (k === 'options') {
+                            i.options = (v as string[]).map(opt => ({ value: opt, title: opt, }))
+                        }
                         i['attr'][k] = v
                     })
                 }

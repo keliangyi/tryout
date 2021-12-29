@@ -143,6 +143,26 @@
     }
 }
 
+.option-setting {
+    display: flex;
+    align-items: center;
+    &:not(:last-child) {
+        margin-bottom: 12px;
+    }
+
+    .handler {
+        flex-shrink: 0;
+        flex-basis: 60px;
+        ng-icon {
+            margin-left: 12px;
+            color: rgba(0, 0, 0, 0.65);
+            &:first-child {
+                cursor: move;
+            }
+        }
+    }
+}
+
 ::ng-deep .cdk-drag-preview.cate-item a {
     display: block;
     width: 108px;
