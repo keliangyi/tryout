@@ -19,8 +19,6 @@ export class UserService {
     }
 
     getUsers(name?: string, age?: number): Array<User> {
-
-
         return this.users.filter(f => {
             let res = true
             if (name && age) {

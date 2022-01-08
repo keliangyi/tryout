@@ -3,6 +3,11 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { fromEvent } from 'rxjs';
 import { concatMap, map, switchMap } from 'rxjs/operators';
 
+type Await<T> = T extends Promise<infer R> ? Await<R> : T
+type Await1<T extends Promise<unknown>> = T extends Promise<infer R> ? R extends Promise<unknown> ? Await1<R> : R : T
+
+type C = Await1<Promise<Promise<number>>>
+
 @Component({
     selector: 'app-flat-operator',
     templateUrl: './flat-operator.component.html',
