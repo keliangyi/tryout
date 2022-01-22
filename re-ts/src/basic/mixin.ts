@@ -1,19 +1,19 @@
-    
-type ClassConstructor<T> = new(...args:any[]) => T
+
+type ClassConstructor<T> = new (...args: any[]) => T
 
 function withEZDebug<C extends ClassConstructor<{
-    getDebugValue():object
-}>>(Class:C) {
+    getDebugValue(): object
+}>>(Class: C) {
     return class extends Class {
-        constructor(...args:any[]){
+        constructor(...args: any[]) {
             super(...args)
         }
-        debug(){            
+        debug() {
             // const name = Class.constructor.name
             const name = Class.toString().split('(')[0].split(' ')[1]
             const value = this.getDebugValue()
             const res = `${name}(${JSON.stringify(value)})`
-            console.log(res)            
+            console.log(res)
             return res
         }
     }
@@ -21,20 +21,20 @@ function withEZDebug<C extends ClassConstructor<{
 
 class TestMixin {
     constructor(
-        private name:string,
-        private age:number,
-        private sex:string,
-        private likes:string[] = [ '吃饭', '睡觉'],
-    ){
+        private name: string,
+        private age: number,
+        private sex: string,
+        private likes: string[] = ['吃饭', '睡觉'],
+    ) {
 
     }
 
-    getDebugValue(){
+    getDebugValue() {
         return {
-            name:this.name,
-            age:this.age,
-            sex:this.sex,
-            likes:this.likes,
+            name: this.name,
+            age: this.age,
+            sex: this.sex,
+            likes: this.likes,
         }
     }
 }
@@ -45,11 +45,11 @@ const user = new MixinUser('maomao', 9, '男')
 
 @withEZDebug // 装饰器
 class Decorated {
-    
-    getDebugValue () {
+
+    getDebugValue() {
         return {
-            a:1,
-            b:2
+            a: 1,
+            b: 2
         }
     }
 }
@@ -60,3 +60,4 @@ const d = new Decorated()
 
 user.debug()
 
+export { }
