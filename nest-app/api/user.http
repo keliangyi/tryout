@@ -2,8 +2,6 @@ Post {{nest}}/user/create
 Content-Type: application/json;charset=UTF-8
 
 {
-    "name":"发噶",
-    "dff":445,
-    "as1":445,
-    "age1":212
+    "name":"猫猫1",   
+    "age":22
 }   

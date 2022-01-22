@@ -2,7 +2,7 @@
 import { Body, Controller, Get, Param, ParseIntPipe, Post, Query } from '@nestjs/common';
 import { User, UserService } from './project.service';
 
-@Controller('user')
+@Controller('userapp')
 export class UserController {
 
     constructor(private userService: UserService) {
@@ -10,9 +10,12 @@ export class UserController {
     }
 
     @Get()
-    user(@Query('name') name: string, @Query('age', ParseIntPipe) age: number) {
+    app_list() {
         //todo age is required
-        return this.userService.getUsers(name, age)
+        return {
+            code: 0,
+            data: []
+        }
     }
 
     @Get(':id')

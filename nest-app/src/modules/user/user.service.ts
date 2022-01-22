@@ -36,6 +36,7 @@ export class UserService {
 
     createUser(n: object) {
         const newUser = new this.UserModel(n)
+        newUser.set('likes', ['吃饭', '睡觉'])
         return newUser.save()
     }
 
