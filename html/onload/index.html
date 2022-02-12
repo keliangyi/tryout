@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible"
+          content="IE=edge">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+    <title>load & DOMContentLoaded</title>
+
+    <script src="./a.js"
+            defer></script>
+    <script src="./b.js"></script>
+    <script>
+        console.log('event start')
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log('DOMContentLoaded is finished')
+        })
+        document.addEventListener('load', function () {
+            console.log('document load is finished')
+        })
+        window.addEventListener('load', function () {
+            console.log('window load is finished')
+        })
+    </script>
+</head>
+
+<body>
+    <div>
+        <script>
+            let i = 0;
+            while (i < 1000) {
+                i++
+            }
+            console.log('computed is finished')
+        </script>
+    </div>
+</body>
+
+</html>
