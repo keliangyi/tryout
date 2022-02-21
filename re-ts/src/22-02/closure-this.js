@@ -17,7 +17,11 @@ const obj = {
     },
     anotherSayName() {
         return function inner() {
+            function innerRun() {
+                console.log('innerRun', this.name);
+            }
             this.name = 'inner' // 这个this 是指向 window 的 === window.name = 'inner'，严格模式会报错
+            innerRun()
             return function () {
                 // 这里的this 也是 window，但是 上面的inner 中给 window 添加了 name 属性
                 console.log(this.name) // inner
