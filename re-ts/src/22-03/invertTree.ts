@@ -41,15 +41,12 @@ const tree: TreeNode = {
 }
 
 const invertTree = (node: TreeNode) => {
-    let left = node.left
-    let right = node.right //不能用结构
-
+    let { left, right } = node
     node.left = right
     node.right = left
     if (left) {
         invertTree(left)
     }
-
     if (right) {
         invertTree(right)
     }
