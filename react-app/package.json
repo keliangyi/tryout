@@ -2,7 +2,18 @@
     "name": "react-app",
     "version": "0.1.0",
     "private": true,
+    "type": "module",
     "dependencies": {
+        "ahooks": "^3.1.13",
+        "axios": "^0.26.0",
+        "express": "^4.17.3",
+        "mobx": "^6.3.5",
+        "mobx-react-lite": "^3.2.1",
+        "react": "^17.0.2",
+        "react-dom": "^17.0.2",
+        "react-router-dom": "^5.3.0"
+    },
+    "devDependencies": {
         "@testing-library/jest-dom": "^4.2.4",
         "@testing-library/react": "^9.3.2",
         "@testing-library/user-event": "^7.1.2",
@@ -10,12 +21,9 @@
         "@types/node": "^16.11.6",
         "@types/react": "^17.0.33",
         "@types/react-dom": "^17.0.10",
-        "mobx": "^6.3.5",
-        "mobx-react-lite": "^3.2.1",
-        "react": "^17.0.2",
-        "react-dom": "^17.0.2",
-        "react-router-dom": "^5.3.0",
-        "react-scripts": "4.0.3",
+        "@types/react-router-dom": "^5.3.2",
+        "react-error-overlay": "^6.0.10",
+        "react-scripts": "5.0.0",
         "typescript": "~4.4.4"
     },
     "scripts": {
@@ -39,8 +47,5 @@
             "last 1 safari version"
         ]
     },
-    "devDependencies": {
-        "@types/react-router-dom": "^5.3.2",
-        "node-sass": "^6.0.1"
-    }
+    "proxy": "https://random-data-api.com/"
 }

@@ -1,7 +1,7 @@
 import { FC, memo, useContext, useEffect, useState } from 'react'
 import { Prompt, useLocation } from 'react-router-dom'
-import { GlobalContext } from '../ctx'
-import { usePrompt } from '../hooks'
+import { GlobalContext } from './ctx'
+import { usePrompt } from '../../hooks'
 
 const TestCtx: FC = memo(() => {
 	console.log('parent rendered')
