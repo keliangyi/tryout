@@ -15,3 +15,8 @@ code {
 #root {
 	padding: 12px;
 }
+
+h1 {
+	color: rebeccapurple;
+	font-size: 36px;
+}

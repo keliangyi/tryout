@@ -77,7 +77,8 @@
     "scripts": {
         "start": "node scripts/start.js",
         "build": "node scripts/build.js",
-        "test": "node scripts/test.js"
+        "test": "node scripts/test.js",
+        "ssr": "npx nodemon --exec npx @babel/node server.js"
     },
     "eslintConfig": {
         "extends": "react-app"
