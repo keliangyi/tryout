@@ -1,17 +1,12 @@
-import { AnyAaaaRecord } from 'dns'
 import React from 'react'
 import { FC, useEffect, useState } from 'react'
 
-interface DataSourceProps {
+export interface DataSourceProps {
 	sourceName: string
 	getDataFn: () => any
 }
 
-const DataSource: FC<DataSourceProps> = ({
-	children,
-	getDataFn,
-	sourceName,
-}) => {
+const DataSource: FC<DataSourceProps> = ({ children, getDataFn, sourceName }) => {
 	const [state, setState] = useState(null)
 
 	useEffect(() => {
