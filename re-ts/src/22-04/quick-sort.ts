@@ -35,7 +35,7 @@ const isChinese = (str: string): boolean => {
 };
 
 function sort(str: string): string;
-function sort<T>(str: Array<T>): T[];
+function sort<T extends Array<unknown>>(data: T): T;
 function sort(data: any) {
 	if (typeof data === "string") {
 		return strSelfSort(data);

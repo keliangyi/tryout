@@ -10,6 +10,7 @@ type Btn = {
 	type: "button" | "submit" | "reset";
 	text: string;
 	alt: string;
+	extra?: string;
 };
 
 type Link = {
@@ -23,7 +24,27 @@ type Sty = {
 	color: string;
 };
 type D = Btn & Sty;
+type U = Btn | Link;
 
+const u_1: string | number = "";
+const c_1: ("a" | "c") & ("b" | "a") = "a";
+
+const c1: Btn & Link = {
+	type: "button",
+	text: "d",
+	alt: "d",
+	href: "d",
+	target: 0,
+	extra: "dd",
+};
+
+const u1: Btn | Link = {
+	type: "button",
+	alt: "d",
+	href: "d",
+	target: 0,
+	extra: "dd",
+};
 const d1: D = {
 	text: "",
 	type: "button",
