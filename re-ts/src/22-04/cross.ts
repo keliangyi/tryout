@@ -84,4 +84,12 @@ function cross<T extends object[]>(...objs: T): T[number] {
 const combine = cross(a1, b1, s1);
 console.log(combine);
 
+type A1 = "a" | "b";
+type A2 = "a";
+
+type A3<T, U> = T extends U ? "c" : "d";
+
+type A4 = A3<A1, A2>;
+const a4: A4 = "c";
+
 export {};

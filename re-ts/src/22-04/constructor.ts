@@ -18,16 +18,18 @@ const b1: Bank = { name: "招商", No: 622012455 };
 const b2 = new Bank("中信", 6242145);
 
 type ConstructorType<T> = new (...args: any[]) => T;
+type ConstructorParameters<T extends new (...args: any[]) => any> =
+	T extends new (...args: infer P) => any ? P : never;
 
-function createInstanceFactory<T>(
+function createInstanceFactory<T, C extends new (...args: any[]) => any>(
 	Constructor: ConstructorType<T>,
-	...args: any[]
+	...args: ConstructorParameters<C>
 ) {
 	console.log(`add:${Constructor.name}`);
 	return new Constructor(...args);
 }
 
-const b3 = createInstanceFactory<Bank>(Bank, "建设", 608888);
+const b3 = createInstanceFactory<Bank, typeof Bank>(Bank, "建设", 608888);
 
 console.log(b3);
 
