@@ -1,11 +1,12 @@
-const fn:(a:number, b:number) => number = (a,b) => a+b 
+const fn: (a: number, b: number) => number = (a, b) => a + b;
 
 enum Status {
-    success,
-    error,
-    warnning,    
+	success,
+	error,
+	warnning,
 }
 
-const s:Status = Status.error
+const s: Status = Status.error;
 
-const c = 1 === Status.error
+const c = 1 === Status.error;
+export {};
