@@ -24,4 +24,5 @@ type T1 = Tail<[1]>;
 type TypeOfArray<T> = T extends Array<infer U> ? U : never;
 
 type T2 = TypeOfArray<string[]>;
+
 export {};
