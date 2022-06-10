@@ -3,4 +3,5 @@
 // import "./22-03/class/extends";
 // import "./22-04/ts-extends";
 
-import './ud/view'
+// import './ud/view'
+import './22-06/99'
