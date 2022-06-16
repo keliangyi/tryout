@@ -4,4 +4,4 @@
 // import "./22-04/ts-extends";
 
 // import './ud/view'
-import './22-06/99'
+import './22-06/blob'
