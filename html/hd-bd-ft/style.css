@@ -1,0 +1,29 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+header,
+footer {
+  background-color: #666;
+}
+
+main {
+  line-height: 100px;
+}
+
+body {
+  display: grid;
+  grid-template-rows: 48px 1fr 48px;
+}
+
+header {
+  position: sticky;
+  top: 0;
+}
+/*# sourceMappingURL=style.css.map */

@@ -1,0 +1,53 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+html,
+body {
+	height: 100%;
+}
+header,
+footer {
+	// height: 48px;
+	background-color: #666;
+}
+// 方法1
+// header {
+// 	position: fixed;
+// 	top: 0;
+// 	left: 0;
+// 	right: 0;
+// }
+// main {
+// 	padding-top: 48px;
+// 	min-height: calc(100vh - 96px);
+// }
+main {
+	line-height: 100px;
+}
+// 方法2
+// header,
+// footer {
+// 	flex-shrink: 0;
+// }
+// header {
+// 	position: sticky;
+// 	top: 0;
+// }
+// body {
+// 	display: flex;
+// 	flex-direction: column;
+// 	main {
+// 		flex: 1;
+// 	}
+// }
+
+// 方法3
+body {
+	display: grid;
+	grid-template-rows: 48px 1fr 48px;
+}
+header {
+	position: sticky;
+	top: 0;
+}
