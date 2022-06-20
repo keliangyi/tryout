@@ -5,3 +5,4 @@
 
 // import './ud/view'
 import './22-06/blob'
+import './22-06/theme'
