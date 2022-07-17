@@ -4,5 +4,6 @@
 // import "./22-04/ts-extends";
 
 // import './ud/view'
-import './22-06/blob'
-import './22-06/theme'
+// import './22-06/blob'
+// import './22-06/theme'
+import './22-07/log-what'
