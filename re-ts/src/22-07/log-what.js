@@ -201,27 +201,80 @@
 /**
  * 判断对象为空
  */
-const obj = {
-	// a: function () {},
-	[Symbol('d')]: 'haha',
-}
-console.log(JSON.stringify(obj))
-console.log(Object.keys(obj))
+// const obj = {
+// 	// a: function () {},
+// 	[Symbol('d')]: 'haha',
+// }
+// console.log(JSON.stringify(obj))
+// console.log(Object.keys(obj))
 
-Object.defineProperty(obj, 'name', {
-	value: 'ss',
-	enumerable: false,
-})
-for (const key in obj) {
-	if (Object.hasOwnProperty.call(obj, key)) {
-		console.log('key', key)
-	}
-}
-console.log('Object.getOwnPropertyNames()', Object.getOwnPropertyNames(obj))
-console.log('Object.getOwnPropertySymbols()', Object.getOwnPropertySymbols(obj))
+// Object.defineProperty(obj, 'name', {
+// 	value: 'ss',
+// 	enumerable: false,
+// })
+// for (const key in obj) {
+// 	if (Object.hasOwnProperty.call(obj, key)) {
+// 		console.log('key', key)
+// 	}
+// }
+// console.log('Object.getOwnPropertyNames()', Object.getOwnPropertyNames(obj))
+// console.log('Object.getOwnPropertySymbols()', Object.getOwnPropertySymbols(obj))
 
-const isEmptyObj = (obj) => {
-	return Object.getOwnPropertyNames(obj).length + Object.getOwnPropertySymbols(obj).length === 0
-}
+// const isEmptyObj = (obj) => {
+// 	return Object.getOwnPropertyNames(obj).length + Object.getOwnPropertySymbols(obj).length === 0
+// }
 
-console.log('isEmptyObj', isEmptyObj(obj))
+// console.log('isEmptyObj', isEmptyObj(obj))
+
+/**
+ * 13
+ */
+
+// Object.prototype.a = 1
+// Function.prototype.a = 123
+// Function.prototype.b = 2
+// function F() {}
+// const f = new F()
+// console.log(f, F)
+// console.log('F.a', F.a) // 1
+// console.log('F.b', F.b) // 2
+// console.log('f.a', f.a) // 1
+// console.log('f.b', f.b) // undefined
+
+/**
+ * 14
+ * const a = 2 >= 3 || true && 1 || false
+ */
+// const a = 2 >= 3 || (true && 1) || false
+// console.log('a', a)
+
+/**
+ * 15
+ *
+ */
+
+// function fn() {}
+// var o = {}
+// console.log('Function.prototype', fn.__proto__ === Function.prototype)
+// console.log(typeof fn) //Function
+// console.log(typeof fn.prototype) //Object
+// console.log(typeof fn.__proto__) //Function
+// console.log(fn.prototype.__proto__ === Object.prototype) //true
+// console.log(fn.__proto__ === Function.prototype) //true
+
+// console.log(fn instanceof Function) //true
+// console.log(fn instanceof Object) //true
+
+// console.log(typeof o) //Object
+// console.log(typeof o.prototype) //undef
+// console.log(typeof o.__proto__) //Object
+// console.log(o.__proto__.__proto__ === null) //true
+
+// console.log(o instanceof Object) // ture
+
+/**
+ * 16
+ */
+
+function fn() {}
+fn.sv = 1
