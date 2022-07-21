@@ -8,5 +8,6 @@
 // import './22-06/theme'
 // import './22-07/log-what'
 // import './22-07/gen'
-import './22-07/prototype'
-import './22-07/web-compoennet'
+// import './22-07/prototype'
+// import './22-07/web-compoennet'
+import './22-07/super'
