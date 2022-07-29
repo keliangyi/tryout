@@ -1,0 +1,33 @@
+<html title="test">
+
+<head>
+    <style>
+        h2 {
+            color: blue !important;
+        }
+    </style>
+    <script>
+        function printH2() {
+            console.log('first script', document.querySelectorAll('h2'));
+            console.log('first script', document.querySelectorAll('img'));
+        }
+        printH2();
+        setTimeout(printH2);
+        function sleep(milliSeconds) {
+            var startTime = new Date().getTime();                    // get the current time
+            while (new Date().getTime() < startTime + milliSeconds); // hog cpu until time's up
+        }
+        sleep(5000)
+    </script>
+
+</head>
+
+<body>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0-alpha.4/dist/css/bootstrap.css">
+    <h2>Hello</h2>
+    <h2>World</h2>
+    <script> console.log('second script'); </script>
+</body>
+
+</html>
