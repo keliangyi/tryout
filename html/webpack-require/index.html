@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>webpack require</h1>
+    <script>
+        ; (function (modules) {
+            function __webpack_require__(moduleId) {
+                var module = { exports: {} }
+                modules[moduleId].call(module.exports, module, module.exports, __webpack_require__)
+                return module.exports
+            }
+            return __webpack_require__('./src/app.js')
+        })({
+            './src/app.js': function (module, exports, __webpack_require__) {
+                var title = __webpack_require__('./src/title.js')
+                console.log(title)
+            },
+            './src/title.js': function (module) {
+                module.exports = 'sss'
+            },
+        })
+    </script>
+</body>
+
+</html>
