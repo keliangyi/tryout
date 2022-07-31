@@ -11,3 +11,7 @@ import './22-06/99'
 // import './22-07/prototype'
 // import './22-07/web-compoennet'
 // import './22-07/super'
+<<<<<<< HEAD
+=======
+import './22-07/extends-date'
+>>>>>>> 364b5e06f62ed02d4a11e7b93803c8b2e788791e
