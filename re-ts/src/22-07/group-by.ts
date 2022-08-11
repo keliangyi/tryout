@@ -12,3 +12,12 @@ function groupBy(arr: any[], flag: Function | string) {
 
 console.log('groupBy()', groupBy(['one', 'two', 'tree'], 'length'))
 console.log('groupBy()', groupBy([6.5, 6.1, 5.6, 7.1], Math.round))
+
+// class A {
+// 	protected name = 45
+// }
+
+// const a = new A()
+// console.log(a.name)
+
+export {}
