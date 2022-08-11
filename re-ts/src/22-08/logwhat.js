@@ -6,7 +6,7 @@ obj.fn = (function (num) {
 	num++ // 21
 	console.log(this)
 	return function (n) {
-		//5
+		//10
 		this.num += n // 15
 		num++ //22
 		console.log(num)
