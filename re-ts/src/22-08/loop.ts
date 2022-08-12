@@ -32,3 +32,10 @@ for (const key in tom) {
 }
 console.log('Object.entries(tom)', Object.entries(tom))
 export {}
+
+interface Arr {
+	[K: number]: string
+	length: number
+}
+
+const arr: Arr = ['a']
