@@ -1,0 +1,43 @@
+{
+    "name": "learn ext",
+    "version": "0.0.1",
+    "description": "learn chrome Ext",
+    "manifest_version": 3,
+    "permissions": [
+        "tabs",
+        "storage"
+    ],
+    "background": {
+        "service_worker": "./src/background.js"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "https://a2303k.cc/*"
+            ],
+            "js": [
+                "./src/content_scripts.js"
+            ]
+        }
+    ],
+    "web_accessible_resources": [
+        {
+            "resources": [],
+            "matches": [
+                "https://a2303k.cc/*"
+            ]
+        }
+    ],
+    "icons": {
+        "48": "assets/logo.png"
+    },
+    "action": {
+        "default_icon": {
+            "16": "assets/logo.png",
+            "24": "assets/logo.png",
+            "32": "assets/logo.png"
+        },
+        "default_title": "KLY",
+        "default_popup": "src/popup.html"
+    }
+}
